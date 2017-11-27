@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Admin.StudentListController">
+   <children>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="150.0" layoutY="90.0" prefHeight="220.0" prefWidth="296.0" text="Test listy uczniów" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="154.0" AnchorPane.topAnchor="90.0" />
+   </children>
+</AnchorPane>

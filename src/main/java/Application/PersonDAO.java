@@ -10,10 +10,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class PersonDAO {
+
     //SELECT an Employee DZIALA
     public static Person searchPerson(String personId) throws SQLException, ClassNotFoundException {
         //Declare a SELECT statement
-        String selectStmt = "SELECT * FROM persons WHERE PERSON_ID=" + personId;
+        String selectStmt = "SELECT * FROM login WHERE PERSON_ID=" + personId;
         //Execute SELECT statement
         try {
             //Get ResultSet from dbExecuteQuery method
@@ -30,10 +31,10 @@ public class PersonDAO {
     }
 
     //UPDATE person's email address DZIALA
-    public static void updatePersonDetails(String personId, String personEmail, String personName, String personSurename) throws SQLException, ClassNotFoundException {
+    public static void updatePersonDetails(String personId, String email, String username, String password,String partof) throws SQLException, ClassNotFoundException {
         //Declare a UPDATE statement
 
-        String updateStmt = "UPDATE persons SET EMAIL='" + personEmail + "',FIRST_NAME='"+ personName + "',LAST_NAME='"+ personSurename + "'WHERE PERSON_ID = " + personId;
+        String updateStmt = "UPDATE persons SET username='" + username + "',password='"+ password + "',partof='" + partof + "',email='"+ email + "'WHERE id = " + personId;
 
         //Execute UPDATE operation
         try {
@@ -46,7 +47,7 @@ public class PersonDAO {
     //DELETE person DZIALA
     public static void deletePersonWithId(String personId) throws SQLException, ClassNotFoundException {
         //Declare a DELETE statement
-        String updateStmt = "DELETE FROM persons WHERE PERSON_ID= " + personId;
+        String updateStmt = "DELETE FROM login WHERE id= " + personId;
 
         //Execute UPDATE operation
         try {
@@ -57,9 +58,9 @@ public class PersonDAO {
     }
 
     //INSERT person DZIALA
-    public static void insertPerson(String name, String lastname, String email) throws SQLException, ClassNotFoundException {
+    public static void insertPerson(String username, String password, String partof, String email) throws SQLException, ClassNotFoundException {
         //Declare a DELETE statement
-        String updateStmt = "INSERT INTO persons(FIRST_NAME, LAST_NAME, EMAIL) VALUES ('" + name + "','" + lastname + "','" + email + "')";
+        String updateStmt = "INSERT INTO login(username, password, partof, email) VALUES ('" + username + "','" + password + "','" + partof + "','" + email + "')";
 
         //Execute DELETE operation
         try {
@@ -74,9 +75,10 @@ public class PersonDAO {
         Person person = null;
         if (rs.next()) {
             person = new Person();
-            person.setPerson_id(rs.getInt("PERSON_ID"));
-            person.setFirstName(rs.getString("FIRST_NAME"));
-            person.setLastName(rs.getString("LAST_NAME"));
+            person.setPerson_id(rs.getInt("id"));
+            person.setUsername(rs.getString("username"));
+            person.setPassword(rs.getString("password"));
+            person.setPartof(rs.getString("partof"));
             person.setEmail(rs.getString("EMAIL"));
         }
         return person;
@@ -85,7 +87,7 @@ public class PersonDAO {
     //SELECT Persons
     public static ObservableList<Person> searchPersons() throws ClassNotFoundException, SQLException {
         //Declare a SELECT statement
-        String selectStmt = "SELECT * FROM persons";
+        String selectStmt = "SELECT * FROM login";
 
         //Execute SELECT statement
         try {
@@ -111,9 +113,10 @@ public class PersonDAO {
 
         while (rs.next()) {
             Person person = new Person();
-            person.setPerson_id(rs.getInt("PERSON_ID"));
-            person.setFirstName(rs.getString("FIRST_NAME"));
-            person.setLastName(rs.getString("LAST_NAME"));
+            person.setPerson_id(rs.getInt("id"));
+            person.setUsername(rs.getString("username"));
+            person.setPassword(rs.getString("password"));
+            person.setPartof(rs.getString("partof"));
             person.setEmail(rs.getString("EMAIL"));
             //Add person to the ObservableList
             personList.add(person);

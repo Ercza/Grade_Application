@@ -9,16 +9,30 @@ import javafx.beans.property.StringProperty;
 public class Person {
     //Declare Employees Table Columns
     private IntegerProperty person_id;
-    private StringProperty firstName;
-    private StringProperty lastName;
+    private StringProperty username;
+    private StringProperty password;
+    private StringProperty partof;
     private StringProperty email;
 
     //Contructor
     public Person() {
         this.person_id = new SimpleIntegerProperty();
-        this.firstName = new SimpleStringProperty();
-        this.lastName = new SimpleStringProperty();
+        this.username = new SimpleStringProperty();
+        this.password = new SimpleStringProperty();
+        this.partof = new SimpleStringProperty();
         this.email = new SimpleStringProperty();
+    }
+
+    public String getPartof() {
+        return partof.get();
+    }
+
+    public StringProperty partofProperty() {
+        return partof;
+    }
+
+    public void setPartof(String partof) {
+        this.partof.set(partof);
     }
 
     public int getPerson_id() {
@@ -33,28 +47,28 @@ public class Person {
         this.person_id.set(person_id);
     }
 
-    public String getFirstName() {
-        return firstName.get();
+    public String getUsername() {
+        return username.get();
     }
 
-    public StringProperty firstNameProperty() {
-        return firstName;
+    public StringProperty usernameProperty() {
+        return username;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName.set(firstName);
+    public void setUsername(String username) {
+        this.username.set(username);
     }
 
-    public String getLastName() {
-        return lastName.get();
+    public String getPassword() {
+        return password.get();
     }
 
-    public StringProperty lastNameProperty() {
-        return lastName;
+    public StringProperty passwordProperty() {
+        return password;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName.set(lastName);
+    public void setPassword(String password) {
+        this.password.set(password);
     }
 
     public String getEmail() {

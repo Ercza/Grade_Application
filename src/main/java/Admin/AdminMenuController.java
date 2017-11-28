@@ -22,7 +22,7 @@ public class AdminMenuController {
     @FXML
     private ToggleGroup toggleGroup;
     @FXML
-    private ToggleButton admin_toggle_button_teacher_list;
+    private ToggleButton admin_toggle_button_person_list;
 
     @FXML
     private ToggleGroup admin_menu_toggle;
@@ -57,7 +57,7 @@ public class AdminMenuController {
 
 
     @FXML
-    void openTeacherList() {
+    void openPersonList() {
         adminController.setCenter(ADMIN_TEACHER_LIST_FXML);
         System.out.println("Open TeacherList");
     }

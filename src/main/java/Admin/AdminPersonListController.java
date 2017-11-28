@@ -1,8 +1,10 @@
 package Admin;
 
+import Application.Options;
 import Application.Person;
 import Application.PersonDAO;
 import Utils.DialogUtils;
+import com.jfoenix.controls.JFXComboBox;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -41,25 +43,31 @@ public class AdminPersonListController {
     private TableColumn<Person, Integer> personIdColumn;
 
     @FXML
-    private TableColumn<Person, String> personNameColumn;
+    private TableColumn<Person, String> personUserNameColumn;
 
     @FXML
-    private TableColumn<Person, String> personLastNameColumn;
+    private TableColumn<Person, String> personPasswordColumn;
+
+    @FXML
+    private TableColumn<Person, String> personPartOfColumn;
 
     @FXML
     private TableColumn<Person, String> personEmailColumn;
 
     @FXML
-    private TextField nameText;
+    private TextField usernameText;
 
     @FXML
-    private TextField surnameText;
+    private TextField passwordText;
 
     @FXML
     private TextField emailText;
 
     @FXML
     private Label resultArea;
+
+    @FXML
+    private JFXComboBox<Options> loginCombobox;
 
     //Usuwanie osoby z bazy dancyh o podanym id
     @FXML
@@ -77,8 +85,8 @@ public class AdminPersonListController {
     void insertPerson(ActionEvent event) throws SQLException, ClassNotFoundException {
 
         try {
-            PersonDAO.insertPerson(nameText.getText(), surnameText.getText(), emailText.getText());
-            resultArea.setText("Dodano osobę: " + nameText.getText() + " " + surnameText.getText() + " " + emailText.getText());
+            PersonDAO.insertPerson(usernameText.getText(), passwordText.getText(), loginCombobox.getValue().toString() , emailText.getText());
+            resultArea.setText("Dodano osobę: " + usernameText.getText() + " " + passwordText.getText() + " " + loginCombobox.getValue().toString()+ " " + emailText.getText());
 
         } catch (SQLException e) {
             DialogUtils.errorDialog(e.getMessage());
@@ -107,8 +115,8 @@ public class AdminPersonListController {
         try {
             personIdText.clear();
             emailText.clear();
-            nameText.clear();
-            surnameText.clear();
+            usernameText.clear();
+            passwordText.clear();
             ObservableList<Person> personData = PersonDAO.searchPersons();
             populatePersons(personData);
         } catch (SQLException e) {
@@ -120,7 +128,7 @@ public class AdminPersonListController {
     @FXML
     void updatePersonDetails(ActionEvent event) throws ClassNotFoundException {
         try {
-            PersonDAO.updatePersonDetails(personIdText.getText(), emailText.getText(), nameText.getText(), surnameText.getText());
+            PersonDAO.updatePersonDetails(personIdText.getText(), emailText.getText(), usernameText.getText(), passwordText.getText(), loginCombobox.getValue().toString());
             resultArea.setText("Dane zostaly zmienione dla osoby z id: " + personIdText.getText() + "\n");
 
         } catch (SQLException e) {
@@ -132,9 +140,12 @@ public class AdminPersonListController {
     @FXML
     private void initialize() {
 
+        loginCombobox.setItems(FXCollections.observableArrayList(Options.values()));
+
         personIdColumn.setCellValueFactory(cellData -> cellData.getValue().person_idProperty().asObject());
-        personNameColumn.setCellValueFactory(cellData -> cellData.getValue().firstNameProperty());
-        personLastNameColumn.setCellValueFactory(cellData -> cellData.getValue().lastNameProperty());
+        personUserNameColumn.setCellValueFactory(cellData -> cellData.getValue().usernameProperty());
+        personPasswordColumn.setCellValueFactory(cellData -> cellData.getValue().passwordProperty());
+        personPartOfColumn.setCellValueFactory(cellData ->cellData.getValue().partofProperty());
         personEmailColumn.setCellValueFactory(cellData -> cellData.getValue().emailProperty());
 
     }
@@ -153,7 +164,7 @@ public class AdminPersonListController {
     //Ustawienie informacji o Osobie w TextArea
     @FXML
     private void setPersonInfoTextArea(Person person) {
-        resultArea.setText("Imię: " + person.getFirstName() + "\n" + "Nazwisko: " + person.getLastName());
+        resultArea.setText("Login: " + person.getUsername() + "\n" + "Hasło: " + person.getPassword());
     }
 
     //Wypelnianie tableview osobami i wyswietlenie osob w textarea

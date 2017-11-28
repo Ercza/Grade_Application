@@ -8,7 +8,7 @@
 
 <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0" style="-fx-background-color: #0799ff;" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Admin.AdminMenuController">
    <children>
-      <ToggleButton fx:id="admin_toggle_button_teacher_list" mnemonicParsing="false" onAction="#openTeacherList" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: #0000ff;" text="Lista nauczycieli" textFill="WHITE">
+      <ToggleButton fx:id="admin_toggle_button_person_list" mnemonicParsing="false" onAction="#openPersonList" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: #0000ff;" text="Lista osób" textFill="WHITE">
          <VBox.margin>
             <Insets />
          </VBox.margin>

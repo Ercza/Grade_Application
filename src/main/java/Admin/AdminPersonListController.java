@@ -67,7 +67,7 @@ public class AdminPersonListController {
         try {
             PersonDAO.deletePersonWithId(personIdText.getText());
             resultArea.setText("Usunięto osobę z id: " + personIdText.getText());
-        } catch(SQLException e){
+        } catch (SQLException e) {
             DialogUtils.errorDialog(e.getMessage());
         }
     }
@@ -75,14 +75,15 @@ public class AdminPersonListController {
     //Dodawanie osoby do bazy danych
     @FXML
     void insertPerson(ActionEvent event) throws SQLException, ClassNotFoundException {
+
         try {
             PersonDAO.insertPerson(nameText.getText(), surnameText.getText(), emailText.getText());
             resultArea.setText("Dodano osobę: " + nameText.getText() + " " + surnameText.getText() + " " + emailText.getText());
+
         } catch (SQLException e) {
             DialogUtils.errorDialog(e.getMessage());
             System.out.println("Błąd wystąpił podczas dodawania osoby do bazy danych");
         }
-
     }
 
     //Szukaj osobe
@@ -104,6 +105,10 @@ public class AdminPersonListController {
     @FXML
     void searchPersons(ActionEvent event) throws SQLException, ClassNotFoundException {
         try {
+            personIdText.clear();
+            emailText.clear();
+            nameText.clear();
+            surnameText.clear();
             ObservableList<Person> personData = PersonDAO.searchPersons();
             populatePersons(personData);
         } catch (SQLException e) {
@@ -114,13 +119,13 @@ public class AdminPersonListController {
     //Aktualizacja emaila osoby wpisany w newEmailText
     @FXML
     void updatePersonDetails(ActionEvent event) throws ClassNotFoundException {
-            try {
-                PersonDAO.updatePersonDetails(personIdText.getText(), emailText.getText(), nameText.getText(), surnameText.getText());
-                resultArea.setText("Dane zostaly zmienione dla osoby z id: " + personIdText.getText() + "\n");
+        try {
+            PersonDAO.updatePersonDetails(personIdText.getText(), emailText.getText(), nameText.getText(), surnameText.getText());
+            resultArea.setText("Dane zostaly zmienione dla osoby z id: " + personIdText.getText() + "\n");
 
-            } catch (SQLException e) {
-                DialogUtils.errorDialog(e.getMessage());
-            }
+        } catch (SQLException e) {
+            DialogUtils.errorDialog(e.getMessage());
+        }
     }
 
     //Inicjalizowanie klasy controlera
@@ -136,7 +141,7 @@ public class AdminPersonListController {
 
     //Wypelnianie danych o osobie
     @FXML
-    private void populatePerson(Person person) throws ClassNotFoundException{
+    private void populatePerson(Person person) throws ClassNotFoundException {
         //Deklaracja ObservableList do wyswietlania w tabeli
         ObservableList<Person> personData = FXCollections.observableArrayList();
         //Dodajemy go do listy

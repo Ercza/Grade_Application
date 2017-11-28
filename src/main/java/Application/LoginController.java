@@ -14,9 +14,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
+
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
@@ -25,6 +28,9 @@ public class LoginController implements Initializable {
 
     @FXML
     private JFXTextField txtLogin;
+
+    @FXML
+    private Label lgnLabelData;
 
     @FXML
     private JFXPasswordField txtPassword;
@@ -57,7 +63,7 @@ public class LoginController implements Initializable {
                         studentWindow.StudentWindow();
                         break;
                     case "Teacher":
-                        TeacherWindow teacherWindow =  new TeacherWindow();
+                        TeacherWindow teacherWindow = new TeacherWindow();
                         teacherWindow.TeacherWindow();
                         break;
                 }
@@ -71,8 +77,17 @@ public class LoginController implements Initializable {
         }
 
     }
+    @FXML
+    void onKeyReleased(KeyEvent event) {
+        boolean isDisabled = (txtLogin.getText().isEmpty() || txtPassword.getText().isEmpty());
+        btLogin.setDisable(isDisabled);
+
+    }
 
     public void initialize(URL location, ResourceBundle resources) {
+        btLogin.setDisable(true);
+        lgnLabelData.setText((new Date()).toString());
+
         if (loginM.isDbConnected()) { //sprawdzamy czy polaczylismy sie z baza danych
             this.dbStatus.setText("Podłączony do bazy danych");
         } else {

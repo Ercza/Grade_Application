@@ -16,11 +16,6 @@
             <ToggleGroup fx:id="admin_menu_toggle" />
          </toggleGroup>
       </ToggleButton>
-      <ToggleButton fx:id="admin_toggle_button_student_list" mnemonicParsing="false" onAction="#openStudentList" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: #0000ff;" text="Lista uczniów" textFill="WHITE" toggleGroup="$admin_menu_toggle">
-         <VBox.margin>
-            <Insets />
-         </VBox.margin>
-      </ToggleButton>
       <ToggleButton fx:id="admin_toggle_button_news" mnemonicParsing="false" onAction="#openNews" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: #0000ff;" text="Komunikaty" textFill="WHITE" toggleGroup="$admin_menu_toggle">
          <VBox.margin>
             <Insets />

@@ -14,8 +14,7 @@ public class AdminMenuController {
 
 
     public static final String ADMIN_NEWS_FXML = "/fxml/Admin/AdminNews.fxml";
-    public static final String ADMIN_STUDENT_LIST_FXML = "/fxml/Admin/AdminStudentList.fxml";
-    public static final String ADMIN_TEACHER_LIST_FXML = "/fxml/Admin/AdminTeacherList.fxml";
+    public static final String ADMIN_TEACHER_LIST_FXML = "/fxml/Admin/AdminPersonList.fxml";
     public static final String LOGIN_FXML = "/fxml/Login.fxml";
 
     private AdminController adminController;
@@ -27,9 +26,6 @@ public class AdminMenuController {
 
     @FXML
     private ToggleGroup admin_menu_toggle;
-
-    @FXML
-    private ToggleButton admin_toggle_button_student_list;
 
     @FXML
     private ToggleButton admin_toggle_button_news;
@@ -59,11 +55,6 @@ public class AdminMenuController {
         System.out.println("Open News");
     }
 
-    @FXML
-    void openStudentList() {
-        adminController.setCenter(ADMIN_STUDENT_LIST_FXML);
-        System.out.println("Open StudentList");
-    }
 
     @FXML
     void openTeacherList() {

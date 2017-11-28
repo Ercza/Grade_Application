@@ -15,7 +15,7 @@ public class MysqlConnection {
 
     // inicjalizowanie obiektu connection
     private static Connection connection;
-    private static Connection conn;
+    //private static Connection conn;
     // inicjalizowanie obiektu properties
     private static Properties properties;
 
@@ -67,11 +67,11 @@ public class MysqlConnection {
         CachedRowSetImpl crs = null;
         try {
             //Connect to DB (Establish Oracle Connection)
-            dbConnection();
+            Connector();
             System.out.println("Select statement: " + queryStmt + "\n");
 
             //Create statement
-            stmt = conn.createStatement();
+            stmt = connection.createStatement();
 
             //Execute select (query) operation
             resultSet = stmt.executeQuery(queryStmt);
@@ -94,7 +94,7 @@ public class MysqlConnection {
                 stmt.close();
             }
             //Close connection
-            dbDisconnect();
+            disconnect();
         }
         //Return CachedRowSet
         return crs;
@@ -106,9 +106,9 @@ public class MysqlConnection {
         Statement stmt = null;
         try {
             //Connect to DB (Establish Oracle Connection)
-            dbConnection();
+            Connector();
             //Create Statement
-            stmt = conn.createStatement();
+            stmt = connection.createStatement();
             //Run executeUpdate operation with given sql statement
             stmt.executeUpdate(sqlStmt);
         } catch (SQLException e) {
@@ -120,12 +120,12 @@ public class MysqlConnection {
                 stmt.close();
             }
             //Close connection
-            dbDisconnect();
+            disconnect();
         }
     }
 
     //Connect to DB
-    public static void dbConnection() throws ClassNotFoundException, SQLException {
+    /*public static void dbConnection() throws ClassNotFoundException, SQLException {
         try{
             Class.forName(DATABASE_DRIVER);
         }catch (ClassNotFoundException e){
@@ -143,10 +143,10 @@ public class MysqlConnection {
             System.out.println("Connection Failed! Check output console");
             throw e;
         }
-    }
+    }*/
 
     //Close Connection
-    public static void dbDisconnect() throws SQLException {
+   /* public static void dbDisconnect() throws SQLException {
         try {
             if (conn != null && !conn.isClosed()) {
                 conn.close();
@@ -154,5 +154,5 @@ public class MysqlConnection {
         } catch (Exception e){
             throw e;
         }
-    }
+    }*/
 }

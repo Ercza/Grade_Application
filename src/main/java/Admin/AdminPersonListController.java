@@ -11,7 +11,7 @@ import javafx.scene.control.*;
 
 import java.sql.SQLException;
 
-public class AdminTeacherListController {
+public class AdminPersonListController {
 
     @FXML
     private TextField personIdText;

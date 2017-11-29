@@ -3,7 +3,7 @@ package Application;
 public enum Options {
     Admin, Teacher, Student;
 
-    private Options(){
+    Options(){
 
     }
     public String value(){

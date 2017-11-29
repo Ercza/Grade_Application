@@ -7,7 +7,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class Person {
-    //Declare Employees Table Columns
+    //Declare Person Table Columns
     private IntegerProperty person_id;
     private StringProperty username;
     private StringProperty password;

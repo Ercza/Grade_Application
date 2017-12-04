@@ -8,13 +8,13 @@ import javafx.beans.property.StringProperty;
 public class Marks {
 
     private IntegerProperty student_id;
-    private StringProperty subject_id;
+    private StringProperty activity;
     private IntegerProperty mark;
 
 
     public Marks() {
         this.student_id = new SimpleIntegerProperty();
-        this.subject_id = new SimpleStringProperty();
+        this.activity = new SimpleStringProperty();
         this.mark = new SimpleIntegerProperty();
     }
 
@@ -30,16 +30,16 @@ public class Marks {
         this.student_id.set(student_id);
     }
 
-    public String getSubject_id() {
-        return subject_id.get();
+    public String getActivity() {
+        return activity.get();
     }
 
-    public StringProperty subject_idProperty() {
-        return subject_id;
+    public StringProperty activityProperty() {
+        return activity;
     }
 
-    public void setSubject_id(String subject_id) {
-        this.subject_id.set(subject_id);
+    public void setActivity(String activity) {
+        this.activity.set(activity);
     }
 
     public int getMark() {

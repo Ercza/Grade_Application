@@ -31,10 +31,10 @@ public class PersonDAO {
     }
 
     //UPDATE person's email address DZIALA
-    public static void updatePersonDetails(String personId, String email, String username, String password,String partof) throws SQLException, ClassNotFoundException {
+    public static void updatePersonDetails(String personId,String username, String password,String partof) throws SQLException, ClassNotFoundException {
         //Declare a UPDATE statement
 
-        String updateStmt = "UPDATE persons SET username='" + username + "',password='"+ password + "',partof='" + partof + "',email='"+ email + "'WHERE id = " + personId;
+        String updateStmt = "UPDATE persons SET username='" + username + "',password='"+ password + "',partof='" + partof + "'WHERE id = " + personId;
 
         //Execute UPDATE operation
         try {
@@ -58,9 +58,9 @@ public class PersonDAO {
     }
 
     //INSERT person DZIALA
-    public static void insertPerson(String username, String password, String partof, String email) throws SQLException, ClassNotFoundException {
+    public static void insertPerson(String username, String password, String partof) throws SQLException, ClassNotFoundException {
         //Declare a DELETE statement
-        String updateStmt = "INSERT INTO login(username, password, partof, email) VALUES ('" + username + "','" + password + "','" + partof + "','" + email + "')";
+        String updateStmt = "INSERT INTO login(username, password, partof, email) VALUES ('" + username + "','" + password + "','" + partof +"')";
 
         //Execute DELETE operation
         try {
@@ -79,7 +79,6 @@ public class PersonDAO {
             person.setUsername(rs.getString("username"));
             person.setPassword(rs.getString("password"));
             person.setPartof(rs.getString("partof"));
-            person.setEmail(rs.getString("EMAIL"));
         }
         return person;
     }
@@ -117,7 +116,6 @@ public class PersonDAO {
             person.setUsername(rs.getString("username"));
             person.setPassword(rs.getString("password"));
             person.setPartof(rs.getString("partof"));
-            person.setEmail(rs.getString("EMAIL"));
             //Add person to the ObservableList
             personList.add(person);
         }

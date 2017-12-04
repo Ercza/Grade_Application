@@ -18,7 +18,7 @@ public class MarksDAO {
             Marks marks = new Marks();
 
             marks.setStudent_id(rs.getInt("ID_STUDENT"));
-            marks.setSubject_id(rs.getString("ID_SUBJECT"));
+            marks.setActivity(rs.getString("ID_SUBJECT"));
             marks.setMark(rs.getInt("MARK"));
             marksList.add(marks);
         }
@@ -69,7 +69,7 @@ public class MarksDAO {
         if (rs.next()) {
             marks = new Marks();
             marks.setStudent_id(rs.getInt("ID_STUDENT"));
-            marks.setSubject_id(rs.getString("ID_SUBJECT"));
+            marks.setActivity(rs.getString("ID_SUBJECT"));
             marks.setMark(rs.getInt("MARK"));
         }
         return marks;

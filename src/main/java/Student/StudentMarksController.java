@@ -68,7 +68,7 @@ public class StudentMarksController {
     @FXML
     private void initialize() {
 
-        student_id_subject_collumn.setCellValueFactory(cellData -> cellData.getValue().subject_idProperty());
+        student_id_subject_collumn.setCellValueFactory(cellData -> cellData.getValue().activityProperty());
         student_marks_collumn.setCellValueFactory(cellData-> cellData.getValue().markProperty().asObject());
 
     }

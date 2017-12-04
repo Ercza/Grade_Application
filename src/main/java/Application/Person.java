@@ -12,7 +12,7 @@ public class Person {
     private StringProperty username;
     private StringProperty password;
     private StringProperty partof;
-    private StringProperty email;
+
 
     //Contructor
     public Person() {
@@ -20,7 +20,6 @@ public class Person {
         this.username = new SimpleStringProperty();
         this.password = new SimpleStringProperty();
         this.partof = new SimpleStringProperty();
-        this.email = new SimpleStringProperty();
     }
 
     public String getPartof() {
@@ -71,15 +70,4 @@ public class Person {
         this.password.set(password);
     }
 
-    public String getEmail() {
-        return email.get();
-    }
-
-    public StringProperty emailProperty() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email.set(email);
-    }
 }

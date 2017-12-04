@@ -8,6 +8,7 @@ import com.jfoenix.controls.JFXComboBox;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
@@ -85,8 +86,8 @@ public class AdminPersonListController {
     void insertPerson(ActionEvent event) throws SQLException, ClassNotFoundException {
 
         try {
-            PersonDAO.insertPerson(usernameText.getText(), passwordText.getText(), loginCombobox.getValue().toString() , emailText.getText());
-            resultArea.setText("Dodano osobę: " + usernameText.getText() + " " + passwordText.getText() + " " + loginCombobox.getValue().toString()+ " " + emailText.getText());
+            PersonDAO.insertPerson(usernameText.getText(), passwordText.getText(), loginCombobox.getValue().toString());
+            resultArea.setText("Dodano osobę: " + usernameText.getText() + " " + passwordText.getText() + " " + loginCombobox.getValue().toString());
 
         } catch (SQLException e) {
             DialogUtils.errorDialog(e.getMessage());
@@ -111,7 +112,7 @@ public class AdminPersonListController {
 
     //Szukaj osoby
     @FXML
-    void searchPersons(ActionEvent event) throws SQLException, ClassNotFoundException {
+    void searchPersons() throws SQLException, ClassNotFoundException {
         try {
             personIdText.clear();
             emailText.clear();
@@ -128,7 +129,7 @@ public class AdminPersonListController {
     @FXML
     void updatePersonDetails(ActionEvent event) throws ClassNotFoundException {
         try {
-            PersonDAO.updatePersonDetails(personIdText.getText(), emailText.getText(), usernameText.getText(), passwordText.getText(), loginCombobox.getValue().toString());
+            PersonDAO.updatePersonDetails(personIdText.getText(), usernameText.getText(), passwordText.getText(), loginCombobox.getValue().toString());
             resultArea.setText("Dane zostaly zmienione dla osoby z id: " + personIdText.getText() + "\n");
 
         } catch (SQLException e) {
@@ -138,15 +139,16 @@ public class AdminPersonListController {
 
     //Inicjalizowanie klasy controlera
     @FXML
-    private void initialize() {
+    private void initialize() throws SQLException, ClassNotFoundException {
 
+
+        searchPersons();
         loginCombobox.setItems(FXCollections.observableArrayList(Options.values()));
 
         personIdColumn.setCellValueFactory(cellData -> cellData.getValue().person_idProperty().asObject());
         personUserNameColumn.setCellValueFactory(cellData -> cellData.getValue().usernameProperty());
         personPasswordColumn.setCellValueFactory(cellData -> cellData.getValue().passwordProperty());
-        personPartOfColumn.setCellValueFactory(cellData ->cellData.getValue().partofProperty());
-        personEmailColumn.setCellValueFactory(cellData -> cellData.getValue().emailProperty());
+        personPartOfColumn.setCellValueFactory(cellData -> cellData.getValue().partofProperty());
 
     }
 

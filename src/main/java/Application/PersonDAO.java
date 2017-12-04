@@ -24,7 +24,7 @@ public class PersonDAO {
             //Return employee object
             return person;
         } catch (SQLException e) {
-            DialogUtils.errorDialog(e.getMessage());
+            e.printStackTrace();
             //Return exception
             throw e;
         }
@@ -40,7 +40,7 @@ public class PersonDAO {
         try {
             MysqlConnection.dbExecuteUpdate(updateStmt);
         } catch (SQLException e) {
-            DialogUtils.errorDialog(e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -53,7 +53,7 @@ public class PersonDAO {
         try {
             MysqlConnection.dbExecuteUpdate(updateStmt);
         } catch (SQLException e) {
-            DialogUtils.errorDialog(e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -66,7 +66,7 @@ public class PersonDAO {
         try {
             MysqlConnection.dbExecuteUpdate(updateStmt);
         } catch (SQLException e) {
-            DialogUtils.errorDialog(e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -99,7 +99,7 @@ public class PersonDAO {
             //Return person object
             return personList;
         } catch (SQLException e) {
-            DialogUtils.errorDialog(e.getMessage());
+            e.printStackTrace();
             //Return exception
             throw e;
         }

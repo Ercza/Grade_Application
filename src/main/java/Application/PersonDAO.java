@@ -14,7 +14,7 @@ public class PersonDAO {
     //SELECT an Employee DZIALA
     public static Person searchPerson(String personId) throws SQLException, ClassNotFoundException {
         //Declare a SELECT statement
-        String selectStmt = "SELECT * FROM login WHERE PERSON_ID=" + personId;
+        String selectStmt = "SELECT * FROM login WHERE id=" + personId;
         //Execute SELECT statement
         try {
             //Get ResultSet from dbExecuteQuery method
@@ -34,7 +34,7 @@ public class PersonDAO {
     public static void updatePersonDetails(String personId,String username, String password,String partof) throws SQLException, ClassNotFoundException {
         //Declare a UPDATE statement
 
-        String updateStmt = "UPDATE persons SET username='" + username + "',password='"+ password + "',partof='" + partof + "'WHERE id = " + personId;
+        String updateStmt = "UPDATE login SET username='" + username + "',password='"+ password + "',partof='" + partof + "'WHERE id = " + personId;
 
         //Execute UPDATE operation
         try {

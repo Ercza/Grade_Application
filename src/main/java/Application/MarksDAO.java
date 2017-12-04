@@ -1,6 +1,5 @@
 package Application;
 
-import Utils.DialogUtils;
 import Utils.MysqlConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -40,7 +39,7 @@ public class MarksDAO {
             //Return person object
             return marksList;
         } catch (SQLException e) {
-            DialogUtils.errorDialog(e.getMessage());
+            e.printStackTrace();
             //Return exception
             throw e;
         }
@@ -58,7 +57,7 @@ public class MarksDAO {
             //Return employee object
             return marks;
         } catch (SQLException e) {
-            DialogUtils.errorDialog(e.getMessage());
+            e.printStackTrace();
             //Return exception
             throw e;
         }

@@ -24,7 +24,7 @@ public class LoginM {
         try {
             return !this.connection.isClosed();
         } catch (SQLException e) {
-            DialogUtils.errorDialog(e.getMessage());
+            e.printStackTrace();
             return false;
         }
     }
@@ -47,7 +47,7 @@ public class LoginM {
                 return false;
             }
         } catch (Exception e) {
-            DialogUtils.errorDialog(e.getMessage());
+            e.printStackTrace();
             return false;
         } finally {
             preparedStatement.close();

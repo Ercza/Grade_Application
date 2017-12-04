@@ -41,7 +41,7 @@ public class MysqlConnection {
                 DialogUtils.errorDialog(e.getMessage());
                 return null;
             } catch (ClassNotFoundException e) {
-                DialogUtils.errorDialog(e.getMessage());
+                e.printStackTrace();
                 return null;
             }
         }
@@ -55,7 +55,7 @@ public class MysqlConnection {
                 connection.close();
                 connection = null;
             } catch (SQLException e) {
-                DialogUtils.errorDialog(e.getMessage());
+                e.printStackTrace();
             }
         }
     }
@@ -82,7 +82,7 @@ public class MysqlConnection {
             crs = new CachedRowSetImpl();
             crs.populate(resultSet);
         } catch (SQLException e) {
-            DialogUtils.errorDialog(e.getMessage());
+            e.printStackTrace();
             throw e;
         } finally {
             if (resultSet != null) {

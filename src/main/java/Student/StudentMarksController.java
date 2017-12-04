@@ -38,7 +38,7 @@ public class StudentMarksController {
             ObservableList<Marks> marksData = MarksDAO.searchMarks();
             populateMarks(marksData);
         } catch (SQLException e) {
-            DialogUtils.errorDialog(e.getMessage());
+            e.printStackTrace();
         }
     }
 

@@ -1,31 +1,35 @@
 package Teacher;
 
 import Utils.FxmlUtils;
-import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class TeacherMenuController {
 
     public static final String LOGIN_FXML = "/fxml/Login.fxml";
+    public static final String TEACHER_NEWS_FXML = "/fxml/Teacher/TeacherNews.fxml";
+    public static final String TEACHER_MARKS_FXML = "/fxml/Teacher/TeacherMarks.fxml";
+
     private TeacherController teacherController;
-    @FXML
-    private JFXButton teacher_button_marks;
 
     @FXML
-    private JFXButton teacher_button_comments;
+    private Button teacher_button_marks;
 
     @FXML
-    private JFXButton teacher_button_absence;
+    private Button teacher_button_comments;
 
     @FXML
-    private JFXButton teacher_button_news;
+    private Button teacher_button_absence;
 
     @FXML
-    private JFXButton teacher_button_logout;
+    private Button teacher_button_news;
+
+    @FXML
+    private Button teacher_button_logout;
 
     @FXML
     void makeLogout(ActionEvent event) {
@@ -53,11 +57,13 @@ public class TeacherMenuController {
 
     @FXML
     void openTeacherMarks(ActionEvent event) {
+        teacherController.setCenter(TEACHER_MARKS_FXML);
 
     }
 
     @FXML
     void openTeacherNews(ActionEvent event) {
+        teacherController.setCenter(TEACHER_NEWS_FXML);
 
     }
 

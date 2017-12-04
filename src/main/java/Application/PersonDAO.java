@@ -11,7 +11,7 @@ import java.sql.SQLException;
 
 public class PersonDAO {
 
-    //SELECT an Employee DZIALA
+    //SELECT person DZIALA
     public static Person searchPerson(String personId) throws SQLException, ClassNotFoundException {
         //Declare a SELECT statement
         String selectStmt = "SELECT * FROM login WHERE id=" + personId;
@@ -70,7 +70,7 @@ public class PersonDAO {
         }
     }
 
-    //Use ResultSet from DB as parameter and set Employee Object's attributes and return employee object.
+    //Use ResultSet from DB as parameter and set Person Object's attributes and return Person object. DZIALA
     private static Person getPersonFromResultSet(ResultSet rs) throws SQLException {
         Person person = null;
         if (rs.next()) {
@@ -83,7 +83,7 @@ public class PersonDAO {
         return person;
     }
 
-    //SELECT Persons
+    //SELECT Persons DZIALA
     public static ObservableList<Person> searchPersons() throws ClassNotFoundException, SQLException {
         //Declare a SELECT statement
         String selectStmt = "SELECT * FROM login";
@@ -105,7 +105,7 @@ public class PersonDAO {
         }
     }
 
-    //Select * from persons operation
+    //Select * from persons operation DZIALA
     private static ObservableList<Person> getPersonList(ResultSet rs) throws SQLException, ClassNotFoundException {
         //Declare a observable List which comprises of Person objects
         ObservableList<Person> personList = FXCollections.observableArrayList();

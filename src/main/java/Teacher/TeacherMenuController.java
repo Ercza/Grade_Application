@@ -13,6 +13,7 @@ public class TeacherMenuController {
     public static final String LOGIN_FXML = "/fxml/Login.fxml";
     public static final String TEACHER_NEWS_FXML = "/fxml/Teacher/TeacherNews.fxml";
     public static final String TEACHER_MARKS_FXML = "/fxml/Teacher/TeacherMarks.fxml";
+    public static final String TEACHER_ATTENTION_FXML = "/fxml/Teacher/TeacherAttention.fxml";
 
     private TeacherController teacherController;
 
@@ -52,6 +53,7 @@ public class TeacherMenuController {
 
     @FXML
     void openTeacherComments(ActionEvent event) {
+        teacherController.setCenter(TEACHER_ATTENTION_FXML);
 
     }
 

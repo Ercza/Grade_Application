@@ -14,6 +14,7 @@ public class StudentMenuController {
     public static final String LOGIN_FXML = "/fxml/Login.fxml";
     public static final String STUDENT_NEWS_FXML = "/fxml/Student/StudentNews.fxml";
     public static final String STUDENT_MARKS_FXML = "/fxml/Student/StudentMarks.fxml";
+    public static final String STUDENT_ATTENTIONS_FXML = "/fxml/Student/StudentAttentions.fxml";
 
     private StudentController studentController;
 
@@ -63,6 +64,7 @@ public class StudentMenuController {
 
     @FXML
     void openStudentComments(ActionEvent event) {
+        studentController.setCenter(STUDENT_ATTENTIONS_FXML);
         System.out.println("Open Student Comments");
 
     }

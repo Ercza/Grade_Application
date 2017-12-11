@@ -27,7 +27,7 @@ public class AttentionDAO {
     public static ObservableList<Attention> getAttentionList(ResultSet rs) throws SQLException {
         ObservableList<Attention> attentionsList = FXCollections.observableArrayList();
 
-        while (rs.next()){
+        while (rs.next()) {
             Attention att = new Attention();
             att.setStudent_id(rs.getInt("student_id"));
             att.setAttention(rs.getString("attention"));
@@ -38,31 +38,32 @@ public class AttentionDAO {
     }
 
     public static void updateAttention(String id, String attention, String date) throws ClassNotFoundException {
-        String updateStmt = "UPDATE attentions SET attention='" + attention + "',date='"+ date + "'WHERE student_id = " + id;
+        String updateStmt = "UPDATE attentions SET attention='" + attention + "',date='" + date + "'WHERE student_id = '" + id + "'";
 
         try {
             MysqlConnection.dbExecuteUpdate(updateStmt);
-        }catch(SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
     public static void deleteAttentionWithId(String attentionId) throws ClassNotFoundException {
-        String updateStmt = "DELETE FROM attentions WHERE student_id= " + attentionId;
+        String updateStmt = "DELETE FROM attentions WHERE student_id= '" + attentionId + "'";
 
-        try{
+        try {
             MysqlConnection.dbExecuteUpdate(updateStmt);
-        }catch(SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public static void insertAttention(String attention,String date) throws ClassNotFoundException {
+    public static void insertAttention(String attention, String date) throws ClassNotFoundException {
 
-        String updateStmt = "INSERT INTO attentions(attention, date) VALUES ('" + attention + "','" + date +"')";
+        String updateStmt = "INSERT INTO attentions(attention, date) VALUES ('" + attention + "','" + date + "')";
 
-        try{
+        try {
             MysqlConnection.dbExecuteUpdate(updateStmt);
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }

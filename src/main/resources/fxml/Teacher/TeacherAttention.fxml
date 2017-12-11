@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXTimePicker?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -39,7 +40,8 @@
                      <children>
                         <Label text="Id uwagi" />
                         <TextField fx:id="teacher_attention_id_text_field" alignment="CENTER" promptText="id" />
-                        <DatePicker fx:id="teacher_attention_date_picker" promptText="data" />
+                        <JFXTimePicker fx:id="teacher_attention_time_picker" prefHeight="16.0" prefWidth="104.0" promptText="czas" />
+                        <JFXDatePicker fx:id="teacher_attention_date_picker" prefHeight="31.0" prefWidth="129.0" promptText="data" />
                      </children>
                   </HBox>
                   <HBox prefHeight="100.0" prefWidth="200.0" spacing="15.0">

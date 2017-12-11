@@ -41,7 +41,7 @@ public class NewsDAO {
 
     public static void updateNews(String newsId, String description) throws SQLException, ClassNotFoundException {
 
-        String updateStmt = "UPDATE news SET description='" + description + "'WHERE id= " + newsId;
+        String updateStmt = "UPDATE news SET description='" + description + "'WHERE id= '" + newsId + "'";
 
         try {
             MysqlConnection.dbExecuteUpdate(updateStmt);
@@ -52,7 +52,7 @@ public class NewsDAO {
 
     public static void deleteNewsWithId(String newsId) throws SQLException, ClassNotFoundException {
 
-        String updateStmt = "DELETE FROM news WHERE id= " + newsId;
+        String updateStmt = "DELETE FROM news WHERE id= '" + newsId + "'";
 
         try {
             MysqlConnection.dbExecuteUpdate(updateStmt);

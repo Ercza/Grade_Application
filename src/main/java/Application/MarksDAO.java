@@ -47,7 +47,7 @@ public class MarksDAO {
 
     public static Marks searchMarks(String subjectId) throws SQLException, ClassNotFoundException {
         //Declare a SELECT statement
-        String selectStmt = "SELECT * FROM marks WHERE ID_STUDENT=" + subjectId;
+        String selectStmt = "SELECT * FROM marks WHERE ID_STUDENT='" + subjectId + "'";
         //Execute SELECT statement
         try {
             //Get ResultSet from dbExecuteQuery method

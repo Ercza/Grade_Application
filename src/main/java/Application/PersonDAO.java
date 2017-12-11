@@ -14,7 +14,7 @@ public class PersonDAO {
     //SELECT person DZIALA
     public static Person searchPerson(String personId) throws SQLException, ClassNotFoundException {
         //Declare a SELECT statement
-        String selectStmt = "SELECT * FROM login WHERE id=" + personId;
+        String selectStmt = "SELECT * FROM login WHERE id='" + personId + "'";
         //Execute SELECT statement
         try {
             //Get ResultSet from dbExecuteQuery method
@@ -31,10 +31,10 @@ public class PersonDAO {
     }
 
     //UPDATE person's email address DZIALA
-    public static void updatePersonDetails(String personId,String username, String password,String partof) throws SQLException, ClassNotFoundException {
+    public static void updatePersonDetails(String personId, String username, String password, String partof) throws SQLException, ClassNotFoundException {
         //Declare a UPDATE statement
 
-        String updateStmt = "UPDATE login SET username='" + username + "',password='"+ password + "',partof='" + partof + "'WHERE id = " + personId;
+        String updateStmt = "UPDATE login SET username='" + username + "',password='" + password + "',partof='" + partof + "'WHERE id = '" + personId + "'";
 
         //Execute UPDATE operation
         try {
@@ -47,7 +47,7 @@ public class PersonDAO {
     //DELETE person DZIALA
     public static void deletePersonWithId(String personId) throws SQLException, ClassNotFoundException {
         //Declare a DELETE statement
-        String updateStmt = "DELETE FROM login WHERE id= " + personId;
+        String updateStmt = "DELETE FROM login WHERE id= '" + personId + "'";
 
         //Execute UPDATE operation
         try {
@@ -60,7 +60,7 @@ public class PersonDAO {
     //INSERT person DZIALA
     public static void insertPerson(String username, String password, String partof) throws SQLException, ClassNotFoundException {
         //Declare a DELETE statement
-        String updateStmt = "INSERT INTO login(username, password, partof, email) VALUES ('" + username + "','" + password + "','" + partof +"')";
+        String updateStmt = "INSERT INTO login(username, password, partof, email) VALUES ('" + username + "','" + password + "','" + partof + "')";
 
         //Execute DELETE operation
         try {

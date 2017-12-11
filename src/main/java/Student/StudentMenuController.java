@@ -15,6 +15,7 @@ public class StudentMenuController {
     public static final String STUDENT_NEWS_FXML = "/fxml/Student/StudentNews.fxml";
     public static final String STUDENT_MARKS_FXML = "/fxml/Student/StudentMarks.fxml";
     public static final String STUDENT_ATTENTIONS_FXML = "/fxml/Student/StudentAttentions.fxml";
+    public static final String STUDENT_ABSENCE_FXML = "/fxml/Student/StudentAbsence.fxml";
 
     private StudentController studentController;
 
@@ -77,6 +78,7 @@ public class StudentMenuController {
 
     @FXML
     void openStudentAbsence(ActionEvent event) {
+        studentController.setCenter(STUDENT_ABSENCE_FXML);
 
     }
 

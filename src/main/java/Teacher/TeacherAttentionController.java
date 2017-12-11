@@ -2,6 +2,8 @@ package Teacher;
 
 import Application.Attention;
 import Application.AttentionDAO;
+import com.jfoenix.controls.JFXDatePicker;
+import com.jfoenix.controls.JFXTimePicker;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -39,7 +41,11 @@ public class TeacherAttentionController {
     private Button teacher_attention_button_delete;
 
     @FXML
-    private DatePicker teacher_attention_date_picker;
+    private JFXTimePicker teacher_attention_time_picker;
+
+    @FXML
+    private JFXDatePicker teacher_attention_date_picker;
+
 
     @FXML
     private TextField teacher_attention_id_text_field;
@@ -50,7 +56,7 @@ public class TeacherAttentionController {
     @FXML
     void teacherAttentionAdd(ActionEvent event){
         try {
-            AttentionDAO.insertAttention(teacher_attention_text_area.getText(),teacher_attention_date_picker.getValue().toString());
+            AttentionDAO.insertAttention(teacher_attention_text_area.getText(),teacher_attention_time_picker.getValue().toString() + " " +teacher_attention_date_picker.getValue().toString());
             searchAttentions();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
@@ -80,7 +86,7 @@ public class TeacherAttentionController {
 
     @FXML
     void teacherAttentionUpdate(ActionEvent event) throws ClassNotFoundException {
-        AttentionDAO.updateAttention(teacher_attention_id_text_field.getText(), teacher_attention_text_area.getText(), teacher_attention_date_picker.getValue().toString());
+        AttentionDAO.updateAttention(teacher_attention_id_text_field.getText(), teacher_attention_text_area.getText(),teacher_attention_time_picker.getValue().toString() + " " + teacher_attention_date_picker.getValue().toString());
         searchAttentions();
 
     }

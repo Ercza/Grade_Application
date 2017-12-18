@@ -28,8 +28,8 @@ public class LoginM {
             return false;
         }
     }
-
-    public boolean isLogin(String user, String pass, String option) throws SQLException { //funkcja sprawdzająca czy sie zalogowalismy
+    //funkcja sprawdzająca czy podane dane logowania sa zgodne z tymi z bazy danych
+    public boolean isLogin(String user, String pass, String option) throws SQLException {
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         String sql = "Select * from Login Where username = ? and password = ? and partof = ?";

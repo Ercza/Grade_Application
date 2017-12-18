@@ -4,6 +4,7 @@ import Utils.MysqlConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import javax.security.auth.Subject;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -15,50 +16,36 @@ public class MarksDAO {
 
         while (rs.next()) {
             Marks marks = new Marks();
-
-            marks.setStudent_id(rs.getInt("ID_STUDENT"));
-            marks.setActivity(rs.getString("ID_SUBJECT"));
-            marks.setMark(rs.getInt("MARK"));
+            marks.setId_mark(rs.getInt("id_mark"));
+            marks.setMark(rs.getString("mark"));
             marksList.add(marks);
         }
         return marksList;
     }
 
     public static ObservableList<Marks> searchMarks() throws ClassNotFoundException, SQLException {
-        //Declare a SELECT statement
         String selectStmt = "SELECT * FROM marks";
 
-        //Execute SELECT statement
         try {
-            //Get ResultSet from dbExecuteQuery method
             ResultSet rsMarks = MysqlConnection.dbExecuteQuery(selectStmt);
 
-            //Send ResultSet to the getEmployeeList method and get employee object
             ObservableList<Marks> marksList = getMarkList(rsMarks);
 
-            //Return person object
             return marksList;
         } catch (SQLException e) {
             e.printStackTrace();
-            //Return exception
             throw e;
         }
     }
 
     public static Marks searchMarks(String subjectId) throws SQLException, ClassNotFoundException {
-        //Declare a SELECT statement
         String selectStmt = "SELECT * FROM marks WHERE ID_STUDENT='" + subjectId + "'";
-        //Execute SELECT statement
         try {
-            //Get ResultSet from dbExecuteQuery method
             ResultSet rsMarks = MysqlConnection.dbExecuteQuery(selectStmt);
-            //Send ResultSet to the getEmployeeFromResultSet method and get employee object
             Marks marks = getMarksFromResultSet(rsMarks);
-            //Return employee object
             return marks;
         } catch (SQLException e) {
             e.printStackTrace();
-            //Return exception
             throw e;
         }
     }
@@ -67,9 +54,8 @@ public class MarksDAO {
         Marks marks = null;
         if (rs.next()) {
             marks = new Marks();
-            marks.setStudent_id(rs.getInt("ID_STUDENT"));
-            marks.setActivity(rs.getString("ID_SUBJECT"));
-            marks.setMark(rs.getInt("MARK"));
+            marks.setId_mark(rs.getInt("id_mark"));
+            marks.setMark(rs.getString("mark"));
         }
         return marks;
     }

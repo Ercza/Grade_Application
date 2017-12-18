@@ -25,8 +25,8 @@ public class AbsenceDAO {
         }
     }
 
-    public static Absence searchAbsences(String name,String surename) throws SQLException, ClassNotFoundException {
-        String selectStmt = "SELECT * FROM absences WHERE name='" + name + "'AND surename='" + surename + "'" ;
+    public static Absence searchAbsences(String name, String surename) throws SQLException, ClassNotFoundException {
+        String selectStmt = "SELECT * FROM absences WHERE name='" + name + "'AND surename='" + surename + "'";
         try {
             ResultSet rs = MysqlConnection.dbExecuteQuery(selectStmt);
             Absence absence = getAbsenceFromResultSet(rs);
@@ -38,7 +38,7 @@ public class AbsenceDAO {
     }
 
     private static Absence getAbsenceFromResultSet(ResultSet rs) throws SQLException {
-        Absence absence= null;
+        Absence absence = null;
         if (rs.next()) {
             absence = new Absence();
             absence.setName(rs.getString("name"));
@@ -62,7 +62,7 @@ public class AbsenceDAO {
     }
 
     public static void updateAbsence(String name, String surename, String date) throws ClassNotFoundException {
-        String updateStmt = "UPDATE absences SET name='" + name + "',surename='" + surename + "',date='" + date + "'WHERE name = " + name;
+        String updateStmt = "UPDATE absences SET name='" + name + "',surename='" + surename + "',date='" + date + "'WHERE name = '" + name + "'";
 
         try {
             MysqlConnection.dbExecuteUpdate(updateStmt);
@@ -72,7 +72,7 @@ public class AbsenceDAO {
     }
 
     public static void deleteAbsenceWithNameSurename(String name, String surename) throws ClassNotFoundException {
-        String updateStmt = "DELETE FROM absences WHERE name='" + name + "'and surename=" + surename;
+        String updateStmt = "DELETE FROM absences WHERE name='" + name + "'and surename='" + surename + "'";
 
         try {
             MysqlConnection.dbExecuteUpdate(updateStmt);
@@ -83,7 +83,7 @@ public class AbsenceDAO {
 
     public static void insertAbsence(String name, String surename, String date) throws ClassNotFoundException {
 
-        String updateStmt = "INSERT INTO absences(name, surename, date) VALUES ('" +name + "','" + surename + "','" + date + "')";
+        String updateStmt = "INSERT INTO absences(name, surename, date) VALUES ('" + name + "','" + surename + "','" + date + "')";
 
         try {
             MysqlConnection.dbExecuteUpdate(updateStmt);

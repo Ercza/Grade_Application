@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Admin.AdminPersonListController">
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="477.0" prefWidth="786.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Admin.AdminPersonListController">
     <children>
       <VBox layoutX="236.0" layoutY="17.0" prefHeight="80.0" prefWidth="457.0" AnchorPane.leftAnchor="236.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="17.0">
          <children>
@@ -48,13 +48,14 @@
         <Button fx:id="addPersonBtn" layoutX="53.0" layoutY="280.0" mnemonicParsing="false" onAction="#insertPerson" prefHeight="31.0" prefWidth="130.0" text="Dodaj Osobę" AnchorPane.leftAnchor="53.0" />
         <Separator layoutY="16.0" prefHeight="2.0" prefWidth="696.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
         <Separator layoutX="233.0" layoutY="16.0" orientation="VERTICAL" prefHeight="417.0" prefWidth="6.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="16.0" />
+        <Button fx:id="updatePersonBtn" layoutX="53.0" layoutY="236.0" mnemonicParsing="false" onAction="#updatePersonDetails" prefHeight="31.0" prefWidth="130.0" text="Aktualizuj po id" />
+      <JFXComboBox fx:id="loginCombobox" layoutX="25.0" layoutY="161.0" prefHeight="31.0" prefWidth="187.0" promptText="Admin/Teacher/Student" />
         <TableView fx:id="personTable" editable="true" layoutX="239.0" layoutY="145.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="275.0" prefWidth="457.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="13.0" AnchorPane.leftAnchor="239.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="145.0">
             <columns>
                 <TableColumn fx:id="personIdColumn" prefWidth="57.0" text="Id" />
                 <TableColumn fx:id="personUserNameColumn" prefWidth="75.0" text="username" />
                 <TableColumn fx:id="personPasswordColumn" prefWidth="73.0" text="password" />
                 <TableColumn fx:id="personPartOfColumn" prefWidth="79.0" text="partof" />
-            <TableColumn fx:id="personEmailColumn" prefWidth="75.0" text="email" />
             </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -66,7 +67,6 @@
                   <children>
                       <Label text="Login" />
                       <Label text="Hasło" />
-                      <Label text="Email" />
                   <Label text="Przynależność" />
                   </children>
               </VBox>
@@ -74,7 +74,6 @@
                <children>
                   <TextField fx:id="usernameText" promptText="login" />
                   <TextField fx:id="passwordText" promptText="password" />
-                  <TextField fx:id="emailText" promptText="email" />
                </children>
               </VBox>
          </children>
@@ -88,7 +87,5 @@
             </Label>
          </children>
       </VBox>
-        <Button fx:id="updatePersonBtn" layoutX="53.0" layoutY="236.0" mnemonicParsing="false" onAction="#updatePersonDetails" prefHeight="31.0" prefWidth="130.0" text="Aktualizuj po id" />
-      <JFXComboBox fx:id="loginCombobox" layoutX="25.0" layoutY="161.0" prefHeight="31.0" prefWidth="187.0" promptText="Admin/Teacher/Student" />
     </children>
 </AnchorPane>

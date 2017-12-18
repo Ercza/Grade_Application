@@ -1,56 +1,39 @@
 package Application;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
 
 public class Marks {
 
-    private IntegerProperty student_id;
-    private StringProperty activity;
-    private IntegerProperty mark;
-
+    private IntegerProperty id_mark;
+    private StringProperty mark;
 
     public Marks() {
-        this.student_id = new SimpleIntegerProperty();
-        this.activity = new SimpleStringProperty();
-        this.mark = new SimpleIntegerProperty();
+        this.id_mark = new SimpleIntegerProperty();
+        this.mark = new SimpleStringProperty();
     }
 
-    public int getStudent_id() {
-        return student_id.get();
+    public int getId_mark() {
+        return id_mark.get();
     }
 
-    public IntegerProperty student_idProperty() {
-        return student_id;
+    public IntegerProperty id_markProperty() {
+        return id_mark;
     }
 
-    public void setStudent_id(int student_id) {
-        this.student_id.set(student_id);
+    public void setId_mark(int id_mark) {
+        this.id_mark.set(id_mark);
     }
 
-    public String getActivity() {
-        return activity.get();
-    }
-
-    public StringProperty activityProperty() {
-        return activity;
-    }
-
-    public void setActivity(String activity) {
-        this.activity.set(activity);
-    }
-
-    public int getMark() {
+    public String getMark() {
         return mark.get();
     }
 
-    public IntegerProperty markProperty() {
+    public StringProperty markProperty() {
         return mark;
     }
 
-    public void setMark(int mark) {
+    public void setMark(String mark) {
         this.mark.set(mark);
     }
+
 }

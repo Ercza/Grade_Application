@@ -1,14 +1,9 @@
 package Student;
 
-import Application.Marks;
-import Application.MarksDAO;
-import Utils.DialogUtils;
-import com.jfoenix.controls.JFXTextField;
+import Application.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
@@ -17,59 +12,53 @@ import java.sql.SQLException;
 public class StudentMarksController {
 
     @FXML
-    private TableColumn<Marks, String> student_id_subject_collumn;
+    private TableView<Join> tableView;
 
     @FXML
-    private TableColumn<Marks, Integer> student_marks_collumn;
-
-
-    @FXML
-    private TableView<Marks> student_marks_tableview;
+    private TableColumn<Join, Integer> id_column;
 
     @FXML
-    private Button student_button_load_marks;
+    private TableColumn<Join, String> name_column;
 
     @FXML
-    private JFXTextField student_marks_is_text_field;
+    private TableColumn<Join, String> surename_column;
 
     @FXML
-    void loadMarks(ActionEvent event) throws SQLException, ClassNotFoundException {
+    private TableColumn<Join, String> subject_column;
+
+    @FXML
+    private TableColumn<Join, String> mark_column;
+
+    @FXML
+    void RefreshNews() throws ClassNotFoundException, SQLException {
         try {
-            ObservableList<Marks> marksData = MarksDAO.searchMarks();
-            populateMarks(marksData);
+
+            ObservableList<Join> subjects = SubjectDAO.getObject();
+
+            populateNews(subjects);
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
 
-    private void populateMarks(ObservableList<Marks> marksData) throws ClassNotFoundException {
-        //Ustawienie danych w tabeli
-        student_marks_tableview.setItems(marksData);
     }
 
     @FXML
-    private void populateMarks(Marks marks) throws ClassNotFoundException {
-        //Deklaracja ObservableList do wyswietlania w tabeli
-        ObservableList<Marks> marksData = FXCollections.observableArrayList();
-        //Dodajemy go do listy
-        marksData.add(marks);
-        //Ustawiamy w tabeli
-        student_marks_tableview.setItems(marksData);
-    }
-    @FXML
-    private void populateAndShowMarks(Marks marks) throws ClassNotFoundException {
-        if (marks != null) {
-            populateMarks(marks);
-        } else {
-            DialogUtils.informationDialog("Takie oceny nie istnieja");
-        }
+    private void populateNews(ObservableList<Join> list) {
+
+        tableView.setItems(list);
     }
 
     @FXML
-    private void initialize() {
+    private void initialize() throws SQLException, ClassNotFoundException {
 
-        student_id_subject_collumn.setCellValueFactory(cellData -> cellData.getValue().activityProperty());
-        student_marks_collumn.setCellValueFactory(cellData-> cellData.getValue().markProperty().asObject());
+        RefreshNews();
+
+        id_column.setCellValueFactory(cellData -> cellData.getValue().idProperty().asObject());
+        name_column.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+        surename_column.setCellValueFactory(cellData -> cellData.getValue().surenameProperty());
+        subject_column.setCellValueFactory(cellData -> cellData.getValue().subjectProperty());
+        mark_column.setCellValueFactory(cellData -> cellData.getValue().markProperty());
 
     }
 

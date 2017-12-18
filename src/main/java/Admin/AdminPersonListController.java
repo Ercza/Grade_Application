@@ -53,16 +53,10 @@ public class AdminPersonListController {
     private TableColumn<Person, String> personPartOfColumn;
 
     @FXML
-    private TableColumn<Person, String> personEmailColumn;
-
-    @FXML
     private TextField usernameText;
 
     @FXML
     private TextField passwordText;
-
-    @FXML
-    private TextField emailText;
 
     @FXML
     private Label resultArea;
@@ -70,7 +64,7 @@ public class AdminPersonListController {
     @FXML
     private JFXComboBox<Options> loginCombobox;
 
-    //Usuwanie osoby z bazy dancyh o podanym id
+    //Usuwanie osoby z bazy dancyh osoby o podanym id
     @FXML
     void deletePerson(ActionEvent event) throws ClassNotFoundException {
         try {
@@ -117,7 +111,6 @@ public class AdminPersonListController {
     void searchPersons() throws ClassNotFoundException {
         try {
             personIdText.clear();
-            emailText.clear();
             usernameText.clear();
             passwordText.clear();
             ObservableList<Person> personData = PersonDAO.searchPersons();

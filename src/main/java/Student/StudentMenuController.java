@@ -32,9 +32,6 @@ public class StudentMenuController {
     private Button student_button_news;
 
     @FXML
-    private Button student_button_lesson_plan;
-
-    @FXML
     private Button student_button_logout;
 
 
@@ -49,12 +46,6 @@ public class StudentMenuController {
         stage.setScene(scene);
         stage.setTitle("Aplikacja e-Dziennik");
         stage.show();
-    }
-
-    @FXML
-    void openStudentLessonPlan(ActionEvent event) {
-
-        System.out.println("Open LessonPlan");
     }
 
     @FXML

@@ -45,7 +45,6 @@ public class AdminMenuController {
         stage.setScene(scene);
         stage.setTitle("Aplikacja e-Dziennik");
         stage.show();
-
     }
 
 

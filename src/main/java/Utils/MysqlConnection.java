@@ -15,7 +15,6 @@ public class MysqlConnection {
 
     // inicjalizowanie obiektu connection
     private static Connection connection;
-    //private static Connection conn;
     // inicjalizowanie obiektu properties
     private static Properties properties;
 
@@ -123,36 +122,4 @@ public class MysqlConnection {
             disconnect();
         }
     }
-
-    //Connect to DB
-    /*public static void dbConnection() throws ClassNotFoundException, SQLException {
-        try{
-            Class.forName(DATABASE_DRIVER);
-        }catch (ClassNotFoundException e){
-            DialogUtils.errorDialog(e.getMessage());
-            System.out.println("Where is your Oracle JDBC Driver?");
-            throw e;
-        }
-
-        System.out.println("Polączony z bazą danych");
-
-        try{
-            conn = DriverManager.getConnection(DATABASE_URL,getProperties());
-        } catch (SQLException e) {
-            DialogUtils.errorDialog(e.getMessage());
-            System.out.println("Connection Failed! Check output console");
-            throw e;
-        }
-    }*/
-
-    //Close Connection
-   /* public static void dbDisconnect() throws SQLException {
-        try {
-            if (conn != null && !conn.isClosed()) {
-                conn.close();
-            }
-        } catch (Exception e){
-            throw e;
-        }
-    }*/
 }

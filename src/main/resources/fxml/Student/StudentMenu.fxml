@@ -13,7 +13,6 @@
       <Button fx:id="student_button_marks" mnemonicParsing="false" onAction="#openStudentMarks" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: #0000ff;" text="Oceny" textFill="WHITE" />
       <Button fx:id="student_button_comments" mnemonicParsing="false" onAction="#openStudentComments" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: #0000ff;" text="Uwagi" textFill="WHITE" />
       <Button fx:id="student_button_news" mnemonicParsing="false" onAction="#openStudentNews" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: #0000ff;" text="Komunikaty" textFill="WHITE" />
-      <Button fx:id="student_button_lesson_plan" mnemonicParsing="false" onAction="#openStudentLessonPlan" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: #0000ff;" text="Plan lekcji" textFill="WHITE" />
       <Button fx:id="student_button_logout" mnemonicParsing="false" onAction="#makeLogout" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: #0000ff;" text="Wyloguj" textFill="WHITE" />
    </children>
 </VBox>

@@ -1,6 +1,5 @@
 package Application;
 
-import Utils.DialogUtils;
 import Utils.MysqlConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -97,7 +96,7 @@ public class SubjectDAO {
     }
 //-----------------------------------------------TESTOWANIE----------------------------------------------
 
-    public static ObservableList<Join> getObject() throws ClassNotFoundException, SQLException {
+    /*public static ObservableList<Join> getObject() throws ClassNotFoundException, SQLException {
 
         String selectStmt = "SELECT students.id_student, students.name, students.surename, subjects.subject_name, marks.mark" +
                 " FROM students" +
@@ -133,6 +132,6 @@ public class SubjectDAO {
         }
 
         return subjectList;
-    }
+    }*/
 
 }

@@ -3,6 +3,7 @@ package Teacher;
 
 import Application.News;
 import Application.NewsDAO;
+import Utils.NewsEntity;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -23,19 +24,11 @@ public class TeacherNewsController {
     private Button teacher_news_button_refresh;
 
     @FXML
-    void teacherRefreshNews() throws ClassNotFoundException {
-        try {
-            ObservableList<News> news = NewsDAO.searchNews();
-            populateNews(news);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
-    private void populateNews(ObservableList<News> news) {
+    void teacherRefreshNews() {
+        ObservableList<News> news = NewsDAO.searchNews();
         teacher_news_table_view.setItems(news);
     }
+
 
     public void initialize() throws ClassNotFoundException {
         teacherRefreshNews();

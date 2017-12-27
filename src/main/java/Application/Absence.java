@@ -1,5 +1,7 @@
 package Application;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -8,12 +10,14 @@ public class Absence {
     private StringProperty name;
     private StringProperty surename;
     private StringProperty date;
+    private IntegerProperty id;
 
-    public Absence(){
+    public Absence(String name, String surename, String date, Integer id){
 
-        this.name = new SimpleStringProperty();
-        this.surename =  new SimpleStringProperty();
-        this.date = new SimpleStringProperty();
+        this.name = new SimpleStringProperty(name);
+        this.surename =  new SimpleStringProperty(surename);
+        this.date = new SimpleStringProperty(date);
+        this.id = new SimpleIntegerProperty(id);
     }
 
     public String getName() {
@@ -50,5 +54,17 @@ public class Absence {
 
     public void setDate(String date) {
         this.date.set(date);
+    }
+
+    public int getId() {
+        return id.get();
+    }
+
+    public IntegerProperty idProperty() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id.set(id);
     }
 }

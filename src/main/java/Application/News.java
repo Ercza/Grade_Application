@@ -10,10 +10,10 @@ public class News {
     private IntegerProperty news_id;
     private StringProperty description;
 
-    public News() {
+    public News(int news_id,String descritpion) {
 
-        this.news_id = new SimpleIntegerProperty();
-        this.description = new SimpleStringProperty();
+        this.news_id = new SimpleIntegerProperty(news_id);
+        this.description = new SimpleStringProperty(descritpion);
     }
 
     public int getNews_id() {

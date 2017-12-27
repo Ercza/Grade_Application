@@ -2,125 +2,184 @@ package Application;
 
 
 import Utils.DialogUtils;
-import Utils.MysqlConnection;
+import Utils.LoginEntity;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import java.util.List;
 
 public class PersonDAO {
 
-    //SELECT person DZIALA
-    public static Person searchPerson(String personId) throws SQLException, ClassNotFoundException {
-        //Declare a SELECT statement
-        String selectStmt = "SELECT * FROM login WHERE id='" + personId + "'";
-        //Execute SELECT statement
+//------------Do zrobienia-------------------
+    public static ObservableList<Person> searchPerson(int id) {
+        List<LoginEntity> list = null;
+
+        EntityManager manager = Main.emf.createEntityManager();
+        EntityTransaction transaction = null;
+
         try {
-            //Get ResultSet from dbExecuteQuery method
-            ResultSet rsPerson = MysqlConnection.dbExecuteQuery(selectStmt);
-            //Send ResultSet to the getEmployeeFromResultSet method and get employee object
-            Person person = getPersonFromResultSet(rsPerson);
-            //Return employee object
-            return person;
-        } catch (SQLException e) {
+            transaction = manager.getTransaction();
+            transaction.begin();
+
+           list = manager.createQuery("select c from LoginEntity  as c where c.id = :id", LoginEntity.class).getResultList();
+            manager.setProperty("id",id);
+
+            transaction.commit();
+
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
             e.printStackTrace();
-            //Return exception
-            throw e;
+        } finally {
+            manager.close();
         }
+        ObservableList<Person> observableList = FXCollections.observableArrayList();
+
+        for (LoginEntity n : list
+                ) {
+            observableList.add(new Person(n.getId(), n.getUsername(), n.getPassword(), n.getPartof()));
+        }
+
+        return observableList;
     }
 
-    //UPDATE person's email address DZIALA
-    public static void updatePersonDetails(String personId, String username, String password, String partof) throws SQLException, ClassNotFoundException {
-        //Declare a UPDATE statement
 
-        String updateStmt = "UPDATE login SET username='" + username + "',password='" + password + "',partof='" + partof + "'WHERE id = '" + personId + "'";
+    public static void updatePersonDetails(int personId, String username, String password, String partof) {
+        EntityManager manager = Main.emf.createEntityManager();
+        EntityTransaction transaction = null;
 
-        //Execute UPDATE operation
         try {
-            MysqlConnection.dbExecuteUpdate(updateStmt);
-        } catch (SQLException e) {
-            e.printStackTrace();
+            // Get a transaction
+            transaction = manager.getTransaction();
+            // Begin the transaction
+            transaction.begin();
+
+            // Get the Note object
+            LoginEntity login = manager.find(LoginEntity.class, personId);
+
+            // Change the values
+            login.setUsername(username);
+            login.setPassword(password);
+            login.setPartof(partof);
+
+            // Update the student
+            manager.persist(login);
+
+            // Commit the transaction
+            transaction.commit();
+        } catch (Exception ex) {
+            // If there are any exceptions, roll back the changes
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            // Print the Exception
+            ex.printStackTrace();
+        } finally {
+            // Close the EntityManager
+            manager.close();
         }
     }
 
-    //DELETE person DZIALA
-    public static void deletePersonWithId(String personId) throws SQLException, ClassNotFoundException {
-        //Declare a DELETE statement
-        String updateStmt = "DELETE FROM login WHERE id= '" + personId + "'";
 
-        //Execute UPDATE operation
+    public static void deletePersonWithId(int personId) {
+        EntityManager manager = Main.emf.createEntityManager();
+        EntityTransaction transaction = null;
+
         try {
-            MysqlConnection.dbExecuteUpdate(updateStmt);
-        } catch (SQLException e) {
-            e.printStackTrace();
+            // Get a transaction
+            transaction = manager.getTransaction();
+            // Begin the transaction
+            transaction.begin();
+
+            // Get the Student object
+            LoginEntity login = manager.find(LoginEntity.class, personId);
+
+            // Delete note
+            manager.remove(login);
+
+            // Commit the transaction
+            transaction.commit();
+        } catch (Exception ex) {
+            // If there are any exceptions, roll back the changes
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            // Print the Exception
+            ex.printStackTrace();
+        } finally {
+            // Close the EntityManager
+            manager.close();
         }
     }
 
-    //INSERT person DZIALA
-    public static void insertPerson(String username, String password, String partof) throws SQLException, ClassNotFoundException {
-        //Declare a DELETE statement
-        String updateStmt = "INSERT INTO login(username, password, partof, email) VALUES ('" + username + "','" + password + "','" + partof + "')";
 
-        //Execute DELETE operation
+    public static void insertPerson(String username, String password, String partof){
+        // Create an EntityManager
+        EntityManager manager = Main.emf.createEntityManager();
+        EntityTransaction transaction = null;
+
         try {
-            MysqlConnection.dbExecuteUpdate(updateStmt);
-        } catch (SQLException e) {
-            e.printStackTrace();
+            // Get a transaction
+            transaction = manager.getTransaction();
+            // Begin the transaction
+            transaction.begin();
+
+            // Create a new notes object
+            LoginEntity login = new LoginEntity();
+            login.setUsername(username);
+            login.setPassword(password);
+            login.setPartof(partof);
+
+            // Save the note object
+            manager.persist(login);
+
+            // Commit the transaction
+            transaction.commit();
+        } catch (Exception ex) {
+            // If there are any exceptions, roll back the changes
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            // Print the Exception
+            ex.printStackTrace();
+        } finally {
+            // Close the EntityManager
+            manager.close();
         }
     }
 
-    //Use ResultSet from DB as parameter and set Person Object's attributes and return Person object. DZIALA
-    private static Person getPersonFromResultSet(ResultSet rs) throws SQLException {
-        Person person = null;
-        if (rs.next()) {
-            person = new Person();
-            person.setPerson_id(rs.getInt("id"));
-            person.setUsername(rs.getString("username"));
-            person.setPassword(rs.getString("password"));
-            person.setPartof(rs.getString("partof"));
-        }
-        return person;
-    }
 
-    //SELECT Persons DZIALA
-    public static ObservableList<Person> searchPersons() throws ClassNotFoundException, SQLException {
-        //Declare a SELECT statement
-        String selectStmt = "SELECT * FROM login";
+    public static ObservableList<Person> searchPersons() {
+        List<LoginEntity> list = null;
 
-        //Execute SELECT statement
+        EntityManager manager = Main.emf.createEntityManager();
+        EntityTransaction transaction = null;
+
         try {
-            //Get ResultSet from dbExecuteQuery method
-            ResultSet rsPerson = MysqlConnection.dbExecuteQuery(selectStmt);
+            transaction = manager.getTransaction();
+            transaction.begin();
 
-            //Send ResultSet to the getEmployeeList method and get employee object
-            ObservableList<Person> personList = getPersonList(rsPerson);
+            list = manager.createQuery("select c from LoginEntity  as c", LoginEntity.class).getResultList();
+            transaction.commit();
 
-            //Return person object
-            return personList;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            //Return exception
-            throw e;
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            DialogUtils.errorDialog(e.getMessage());
+        } finally {
+            manager.close();
         }
-    }
+        ObservableList<Person> observableList = FXCollections.observableArrayList();
 
-    //Select * from persons operation DZIALA
-    private static ObservableList<Person> getPersonList(ResultSet rs) throws SQLException, ClassNotFoundException {
-        //Declare a observable List which comprises of Person objects
-        ObservableList<Person> personList = FXCollections.observableArrayList();
-
-        while (rs.next()) {
-            Person person = new Person();
-            person.setPerson_id(rs.getInt("id"));
-            person.setUsername(rs.getString("username"));
-            person.setPassword(rs.getString("password"));
-            person.setPartof(rs.getString("partof"));
-            //Add person to the ObservableList
-            personList.add(person);
+        for (LoginEntity n : list
+                ) {
+            observableList.add(new Person(n.getId(), n.getUsername(), n.getPassword(), (String) n.getPartof()));
         }
-        //return personList (ObservableList of Persons)
-        return personList;
+
+        return observableList;
     }
 
 }

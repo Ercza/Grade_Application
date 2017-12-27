@@ -11,11 +11,11 @@ public class Attention {
     private StringProperty attention;
     private StringProperty date;
 
-    public Attention(){
+    public Attention(int student_id, String attention, String date) {
 
-        this.student_id = new SimpleIntegerProperty();
-        this.attention = new SimpleStringProperty();
-        this.date =  new SimpleStringProperty();
+        this.student_id = new SimpleIntegerProperty(student_id);
+        this.attention = new SimpleStringProperty(attention);
+        this.date = new SimpleStringProperty(date);
     }
 
     public int getStudent_id() {

@@ -55,44 +55,35 @@ public class TeacherAttentionController {
 
     @FXML
     void teacherAttentionAdd(ActionEvent event){
-        try {
+
             AttentionDAO.insertAttention(teacher_attention_text_area.getText(),teacher_attention_time_picker.getValue().toString() + " " +teacher_attention_date_picker.getValue().toString());
             searchAttentions();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
 
     }
     @FXML
-    void searchAttentions() throws ClassNotFoundException {
-        try {
-            ObservableList<Attention> attentionData = AttentionDAO.searchAttentions();
-            populateAttentions(attentionData);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    void searchAttentions(){
+        ObservableList<Attention> attentions = AttentionDAO.searchAttentions();
+        teacher_attention_table_view.setItems(attentions);
     }
 
-    @FXML
-    private void populateAttentions(ObservableList<Attention> attentionData) throws ClassNotFoundException {
-        teacher_attention_table_view.setItems(attentionData);
-    }
 
     @FXML
-    void teacherAttentionDelete(ActionEvent event) throws ClassNotFoundException {
-        AttentionDAO.deleteAttentionWithId(teacher_attention_id_text_field.getText());
+    void teacherAttentionDelete(ActionEvent event){
+        int x = Integer.parseInt(teacher_attention_id_text_field.getText());
+        AttentionDAO.deleteAttentionWithId(x);
         searchAttentions();
     }
 
     @FXML
-    void teacherAttentionUpdate(ActionEvent event) throws ClassNotFoundException {
-        AttentionDAO.updateAttention(teacher_attention_id_text_field.getText(), teacher_attention_text_area.getText(),teacher_attention_time_picker.getValue().toString() + " " + teacher_attention_date_picker.getValue().toString());
+    void teacherAttentionUpdate(ActionEvent event){
+        int x = Integer.parseInt(teacher_attention_id_text_field.getText());
+        AttentionDAO.updateAttention(x, teacher_attention_text_area.getText(),teacher_attention_time_picker.getValue().toString() + " " + teacher_attention_date_picker.getValue().toString());
         searchAttentions();
 
     }
 
     @FXML
-    public void initialize() throws ClassNotFoundException {
+    public void initialize(){
 
         searchAttentions();
 

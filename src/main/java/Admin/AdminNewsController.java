@@ -45,54 +45,32 @@ public class AdminNewsController {
     private JFXTextField admin_text_field_id;
 
     @FXML
-    void adminAddNews(ActionEvent event) throws ClassNotFoundException {
-
-        try {
-            NewsDAO.insertNews(admin_news_text_area.getText());
-            adminRefreshNews();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
+    void adminAddNews(ActionEvent event) {
+        NewsDAO.insertNews(admin_news_text_area.getText());
+        adminRefreshNews();
     }
 
     @FXML
-    void adminRefreshNews() throws ClassNotFoundException {
-        try {
-            ObservableList<News> news = NewsDAO.searchNews();
-            populateNewss(news);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
-    private void populateNewss(ObservableList<News> news) {
+    void adminRefreshNews() {
+        ObservableList<News> news = NewsDAO.searchNews();
         admin_news_tableview.setItems(news);
     }
 
     @FXML
-    void adminUpdateNews(ActionEvent event) throws ClassNotFoundException {
-        try {
-            NewsDAO.updateNews(admin_text_field_id.getText(), admin_news_text_area.getText());
-            adminRefreshNews();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    void adminUpdateNews(ActionEvent event) {
+        int x = Integer.parseInt(admin_text_field_id.getText());
+        NewsDAO.updateNews(x, admin_news_text_area.getText());
+        adminRefreshNews();
     }
 
     @FXML
-    void adminDeleteNews(ActionEvent event) throws ClassNotFoundException {
-        try {
-            NewsDAO.deleteNewsWithId(admin_text_field_id.getText());
-            adminRefreshNews();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    void adminDeleteNews(ActionEvent event) {
+        int x = Integer.parseInt(admin_text_field_id.getText());
+        NewsDAO.deleteNewsWithId(x);
+        adminRefreshNews();
     }
 
-    public void initialize() throws ClassNotFoundException {
+    public void initialize() {
         adminRefreshNews();
 
         admin_news_id_column.setCellValueFactory(cellData -> cellData.getValue().news_idProperty().asObject());

@@ -20,6 +20,9 @@ public class TeacherAbsenceController {
     private TableView<Absence> teacher_absence_table_view;
 
     @FXML
+    private TableColumn<Absence, Integer> teacher_absence_id_column;
+
+    @FXML
     private TableColumn<Absence, String> teacher_absence_name_column;
 
     @FXML
@@ -41,6 +44,9 @@ public class TeacherAbsenceController {
     private TextField teacher_absence_surename_text_field;
 
     @FXML
+    private TextField id_field;
+
+    @FXML
     private Button teacher_absence_add_button;
 
     @FXML
@@ -51,47 +57,40 @@ public class TeacherAbsenceController {
 
 
     @FXML
-    void addAbsence(ActionEvent event) {
-        try{
-            AbsenceDAO.insertAbsence(teacher_absence_name_text_field.getText(),teacher_absence_surename_text_field.getText(),teacher_absence_time_picker.getValue().toString() + " " + teacher_absence_date_picker.getValue().toString());
-            searchAbsence();
-        }catch(ClassNotFoundException e){
-            e.printStackTrace();
-        }
-    }
-    @FXML
-    void searchAbsence() throws ClassNotFoundException {
-        try {
-            ObservableList<Absence> absenceData = AbsenceDAO.searchAbsence();
-            populateAbsence(absenceData);
-        }catch(SQLException e){
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
-    private void populateAbsence(ObservableList<Absence> absenceData){
-        teacher_absence_table_view.setItems(absenceData);
-    }
-
-    @FXML
-    void deleteAbsence(ActionEvent event) throws ClassNotFoundException {
-    AbsenceDAO.deleteAbsenceWithNameSurename(teacher_absence_name_text_field.getText(),teacher_absence_surename_text_field.getText());
-    searchAbsence();
-    }
-
-    @FXML
-    void updateAbsence(ActionEvent event) throws ClassNotFoundException {
-        AbsenceDAO.updateAbsence(teacher_absence_name_text_field.getText(),teacher_absence_surename_text_field.getText(),teacher_absence_time_picker.getValue().toString() + " " + teacher_absence_date_picker.getValue().toString());
+    void addAbsence() {
+        AbsenceDAO.insertAbsence(teacher_absence_name_text_field.getText(), teacher_absence_surename_text_field.getText(), teacher_absence_time_picker.getValue().toString() + " " + teacher_absence_date_picker.getValue().toString());
         searchAbsence();
     }
 
     @FXML
-    public void initialize()throws ClassNotFoundException{
+    void searchAbsence() {
+        ObservableList<Absence> absences = AbsenceDAO.searchAbsences();
+        teacher_absence_table_view.setItems(absences);
+    }
+
+
+    @FXML
+    void deleteAbsence() {
+        int x = Integer.parseInt(id_field.getText());
+        AbsenceDAO.deleteAbsenceWithId(x);
         searchAbsence();
-        teacher_absence_name_column.setCellValueFactory(cellData->cellData.getValue().nameProperty());
-        teacher_absence_surename_column.setCellValueFactory(cellData->cellData.getValue().surenameProperty());
-        teacher_absence_date_column.setCellValueFactory(cellData->cellData.getValue().dateProperty());
+    }
+
+    @FXML
+    void updateAbsence() {
+        int x = Integer.parseInt(id_field.getText());
+        AbsenceDAO.updateAbsence(x, teacher_absence_name_text_field.getText(), teacher_absence_surename_text_field.getText(), teacher_absence_time_picker.getValue().toString() + " " + teacher_absence_date_picker.getValue().toString());
+        searchAbsence();
+    }
+
+    @FXML
+    public void initialize() {
+        searchAbsence();
+
+        teacher_absence_id_column.setCellValueFactory(cell -> cell.getValue().idProperty().asObject());
+        teacher_absence_name_column.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+        teacher_absence_surename_column.setCellValueFactory(cellData -> cellData.getValue().surenameProperty());
+        teacher_absence_date_column.setCellValueFactory(cellData -> cellData.getValue().dateProperty());
     }
 
 }

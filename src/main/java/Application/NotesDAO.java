@@ -1,6 +1,6 @@
 package Application;
 
-import Utils.NewsEntity;
+import Utils.NotesEntity;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -8,9 +8,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import java.util.List;
 
-public class NewsDAO {
-    public static ObservableList<News> searchNews() {
-        List<NewsEntity> list = null;
+public class NotesDAO {
+
+
+    public static ObservableList<Join> readAll() {
+        List<NotesEntity> list = null;
 
         EntityManager manager = Main.emf.createEntityManager();
         EntityTransaction transaction = null;
@@ -19,7 +21,7 @@ public class NewsDAO {
             transaction = manager.getTransaction();
             transaction.begin();
 
-            list = manager.createQuery("select c from NewsEntity  as c", NewsEntity.class).getResultList();
+            list = manager.createQuery("select c from NotesEntity as c", NotesEntity.class).getResultList();
             transaction.commit();
 
         } catch (Exception e) {
@@ -30,51 +32,19 @@ public class NewsDAO {
         } finally {
             manager.close();
         }
-        ObservableList<News> observableList = FXCollections.observableArrayList();
+        ObservableList<Join> observableList = FXCollections.observableArrayList();
 
-        for (NewsEntity n : list
+        for (NotesEntity n : list
                 ) {
-            observableList.add(new News(n.getId(), n.getDescription()));
+            observableList.add(new Join(n.getIdStudent(), n.getIdTeacher(), n.getIdSubject(), n.getIdMark()));
         }
 
         return observableList;
     }
 
-    public static void updateNews(int newsId, String description) {
-        EntityManager manager = Main.emf.createEntityManager();
-        EntityTransaction transaction = null;
 
-        try {
-            // Get a transaction
-            transaction = manager.getTransaction();
-            // Begin the transaction
-            transaction.begin();
-
-            // Get the Note object
-            NewsEntity news = manager.find(NewsEntity.class, newsId);
-
-            // Change the values
-            news.setDescription(description);
-
-            // Update the student
-            manager.persist(news);
-
-            // Commit the transaction
-            transaction.commit();
-        } catch (Exception ex) {
-            // If there are any exceptions, roll back the changes
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            // Print the Exception
-            ex.printStackTrace();
-        } finally {
-            // Close the EntityManager
-            manager.close();
-        }
-    }
-
-    public static void deleteNewsWithId(int newsId) {
+    public static void delete(int id) {
+        // Create an EntityManager
         EntityManager manager = Main.emf.createEntityManager();
         EntityTransaction transaction = null;
 
@@ -85,10 +55,10 @@ public class NewsDAO {
             transaction.begin();
 
             // Get the Student object
-            NewsEntity news = manager.find(NewsEntity.class, newsId);
+            NotesEntity notes = manager.find(NotesEntity.class, id);
 
             // Delete note
-            manager.remove(news);
+            manager.remove(notes);
 
             // Commit the transaction
             transaction.commit();
@@ -103,10 +73,50 @@ public class NewsDAO {
             // Close the EntityManager
             manager.close();
         }
-
     }
 
-    public static void insertNews(String description) {
+
+    public static void update(int id_student, int id_teacher, int id_subject, int id_mark) {
+        // Create an EntityManager
+        EntityManager manager = Main.emf.createEntityManager();
+        EntityTransaction transaction = null;
+
+        try {
+            // Get a transaction
+            transaction = manager.getTransaction();
+            // Begin the transaction
+            transaction.begin();
+
+            // Get the Note object
+            NotesEntity notes = manager.find(NotesEntity.class, id_student);
+
+            // Change the values
+            notes.setIdStudent(id_student);
+            notes.setIdTeacher(id_teacher);
+            notes.setIdSubject(id_subject);
+            notes.setIdMark(id_mark);
+
+
+            // Update the student
+            manager.persist(notes);
+
+            // Commit the transaction
+            transaction.commit();
+        } catch (Exception ex) {
+            // If there are any exceptions, roll back the changes
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            // Print the Exception
+            ex.printStackTrace();
+        } finally {
+            // Close the EntityManager
+            manager.close();
+        }
+    }
+
+
+    public static void create(int id_student, int id_teacher, int id_subject, int id_mark) {
         // Create an EntityManager
         EntityManager manager = Main.emf.createEntityManager();
         EntityTransaction transaction = null;
@@ -118,11 +128,14 @@ public class NewsDAO {
             transaction.begin();
 
             // Create a new notes object
-            NewsEntity news = new NewsEntity();
-            news.setDescription(description);
+            NotesEntity notes = new NotesEntity();
+            notes.setIdStudent(id_student);
+            notes.setIdTeacher(id_teacher);
+            notes.setIdSubject(id_subject);
+            notes.setIdMark(id_mark);
 
             // Save the note object
-            manager.persist(news);
+            manager.persist(notes);
 
             // Commit the transaction
             transaction.commit();
@@ -137,6 +150,5 @@ public class NewsDAO {
             // Close the EntityManager
             manager.close();
         }
-
     }
 }

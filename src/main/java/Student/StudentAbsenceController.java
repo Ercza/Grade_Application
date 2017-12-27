@@ -20,6 +20,9 @@ public class StudentAbsenceController {
     private TableView<Absence> student_absence_table_view;
 
     @FXML
+    private TableColumn<Absence, Integer> student_absence_id_column;
+
+    @FXML
     private TableColumn<Absence, String> student_absence_name_column;
 
     @FXML
@@ -41,49 +44,24 @@ public class StudentAbsenceController {
     private Button student_absence_refresh_button;
 
     @FXML
-    void searchAbsences(ActionEvent event) throws ClassNotFoundException {
-        try {
-            Absence absence = AbsenceDAO.searchAbsences(student_absence_name_text_field.getText(),student_absence_surename_text_field.getText());
-            populateAndShowAbsence(absence);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    void searchAbsences(){
+        ObservableList<Absence> absences = AbsenceDAO.searchAbsence(student_absence_name_text_field.getText(),student_absence_surename_text_field.getText());
+        student_absence_table_view.setItems(absences);
+
     }
+
+
     @FXML
-    private void populateAndShowAbsence(Absence absence) throws ClassNotFoundException {
-        if (absence != null) {
-            populateAbsences(absence);
-        } else {
-            DialogUtils.informationDialog("Taka osoba nie istnieje");
-        }
+    void refreshAbsence(){
+        ObservableList<Absence> absences = AbsenceDAO.searchAbsences();
+        student_absence_table_view.setItems(absences);
     }
 
     @FXML
-    private void populateAbsences(Absence absence) throws ClassNotFoundException {
-        ObservableList<Absence> absenceData = FXCollections.observableArrayList();
-        absenceData.add(absence);
-        student_absence_table_view.setItems(absenceData);
-    }
-
-    @FXML
-    private void populateAbsence(ObservableList<Absence> absence) {
-        student_absence_table_view.setItems(absence);
-    }
-
-    @FXML
-    void refreshAbsence() throws ClassNotFoundException {
-        try {
-            ObservableList<Absence> absence = AbsenceDAO.searchAbsence();
-            populateAbsence(absence);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
-    public void initialize() throws ClassNotFoundException {
+    public void initialize(){
         refreshAbsence();
 
+        student_absence_id_column.setCellValueFactory(cell->cell.getValue().idProperty().asObject());
         student_absence_name_column.setCellValueFactory(cellData->cellData.getValue().nameProperty());
         student_absence_surename_column.setCellValueFactory(cellData->cellData.getValue().surenameProperty());
         student_absence_date_column.setCellValueFactory(cellData->cellData.getValue().dateProperty());

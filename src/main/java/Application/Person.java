@@ -6,20 +6,21 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+import javax.persistence.Entity;
+
+
 public class Person {
-    //Declare Person Table Columns
+
     private IntegerProperty person_id;
     private StringProperty username;
     private StringProperty password;
     private StringProperty partof;
 
-
-    //Contructor
-    public Person() {
-        this.person_id = new SimpleIntegerProperty();
-        this.username = new SimpleStringProperty();
-        this.password = new SimpleStringProperty();
-        this.partof = new SimpleStringProperty();
+    public Person(int id, String username, String password, String partof) {
+        this.person_id = new SimpleIntegerProperty(id);
+        this.username = new SimpleStringProperty(username);
+        this.password = new SimpleStringProperty(password);
+        this.partof = new SimpleStringProperty(partof);
     }
 
     public String getPartof() {

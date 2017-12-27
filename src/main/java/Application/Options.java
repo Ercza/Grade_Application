@@ -1,6 +1,8 @@
 package Application;
 
-public enum Options {
+import java.io.Serializable;
+
+public enum Options implements Serializable {
     Admin, Teacher, Student;
 
     Options(){

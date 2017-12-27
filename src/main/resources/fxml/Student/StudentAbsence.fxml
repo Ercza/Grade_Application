@@ -16,6 +16,7 @@
          <children>
             <TableView fx:id="student_absence_table_view" prefHeight="200.0" prefWidth="200.0" tableMenuButtonVisible="true">
               <columns>
+                  <TableColumn fx:id="student_absence_id_column" prefWidth="75.0" text="id" />
                 <TableColumn fx:id="student_absence_name_column" prefWidth="75.0" text="imię" />
                 <TableColumn fx:id="student_absence_surename_column" prefWidth="75.0" text="nazwisko" />
                   <TableColumn fx:id="student_absence_date_column" prefWidth="75.0" text="data" />

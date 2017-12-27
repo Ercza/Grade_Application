@@ -18,6 +18,7 @@
          <children>
             <TableView fx:id="teacher_absence_table_view" prefHeight="200.0" prefWidth="200.0" tableMenuButtonVisible="true">
               <columns>
+                  <TableColumn fx:id="teacher_absence_id_column" prefWidth="75.0" text="id" />
                 <TableColumn fx:id="teacher_absence_name_column" prefWidth="75.0" text="imię" />
                 <TableColumn fx:id="teacher_absence_surename_column" prefWidth="75.0" text="nazwisko" />
                   <TableColumn fx:id="teacher_absence_date_column" prefWidth="75.0" text="data" />
@@ -50,6 +51,8 @@
                            <children>
                               <Button fx:id="teacher_absence_add_button" mnemonicParsing="false" onAction="#addAbsence" text="Dodaj" />
                               <Button fx:id="teacher_absence_delete_button" mnemonicParsing="false" onAction="#deleteAbsence" text="Usuń" />
+                              <Label text="id" />
+                              <TextField fx:id="id_field" prefHeight="31.0" prefWidth="45.0" />
                               <Button fx:id="teacher_absence_update_button" mnemonicParsing="false" onAction="#updateAbsence" text="Aktualizuj" />
                            </children>
                            <VBox.margin>

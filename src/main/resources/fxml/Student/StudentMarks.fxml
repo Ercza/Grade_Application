@@ -1,29 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Student.StudentMarksController">
+<AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Student.StudentMarksController">
    <children>
       <VBox prefHeight="400.0" prefWidth="600.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
             <TableView fx:id="tableView" prefHeight="200.0" prefWidth="200.0" tableMenuButtonVisible="true">
               <columns>
-                <TableColumn fx:id="id_column" prefWidth="75.0" text="id_studenta" />
-                <TableColumn fx:id="name_column" prefWidth="75.0" text="imię" />
-                  <TableColumn fx:id="surename_column" prefWidth="75.0" text="nazwisko" />
-                  <TableColumn fx:id="subject_column" prefWidth="75.0" text="przedmiot" />
-                  <TableColumn fx:id="mark_column" prefWidth="75.0" text="ocena" />
+                <TableColumn fx:id="id_student_column" prefWidth="75.0" text="id_studenta" />
+                <TableColumn fx:id="id_teacher_column" prefWidth="75.0" text="id_nauczyciela" />
+                  <TableColumn fx:id="id_subject_column" prefWidth="75.0" text="id_przedmiotu" />
+                  <TableColumn fx:id="id_note_column" prefWidth="75.0" text="id_oceny" />
               </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </TableView>
-            <HBox prefHeight="100.0" prefWidth="200.0" />
+            <HBox prefHeight="100.0" prefWidth="200.0" spacing="15.0">
+               <children>
+                  <Label text="id_student" />
+                  <TextField fx:id="id_student_field" prefWidth="150.0" />
+                  <Label text="id_teacher" />
+                  <TextField fx:id="id_teacher_field" prefWidth="150.0" />
+                  <Label text="id_subject" />
+                  <TextField fx:id="id_subject_field" prefWidth="150.0" />
+                  <Label text="id_mark" />
+                  <TextField fx:id="id_mark_field" prefWidth="150.0" />
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding></HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
+               <children>
+                  <Button fx:id="addButton" mnemonicParsing="false" onAction="#createNote" text="Dodaj" />
+                  <Button fx:id="updateButton" mnemonicParsing="false" onAction="#updateNote" text="Aktualizuj" />
+                  <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteNote" text="Usuń" />
+                  <Button fx:id="refreshButton" mnemonicParsing="false" onAction="#readAllNote" text="Odśwież" />
+               </children>
+            </HBox>
          </children>
          <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

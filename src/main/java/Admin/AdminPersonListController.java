@@ -20,9 +20,6 @@ public class AdminPersonListController {
     private TextField personIdText;
 
     @FXML
-    private TextField newEmailText;
-
-    @FXML
     private Button searchPersonBtn;
 
     @FXML
@@ -66,77 +63,50 @@ public class AdminPersonListController {
 
     //Usuwanie osoby z bazy dancyh osoby o podanym id
     @FXML
-    void deletePerson(ActionEvent event) throws ClassNotFoundException {
-        try {
-            PersonDAO.deletePersonWithId(personIdText.getText());
-            resultArea.setText("Usunięto osobę z id: " + personIdText.getText());
-            searchPersons();
-        } catch (SQLException e) {
-            DialogUtils.errorDialog(e.getMessage());
-        }
+    void deletePerson() {
+        int x = Integer.parseInt(personIdText.getText());
+        PersonDAO.deletePersonWithId(x);
+        resultArea.setText("Usunięto osobę z id: " + personIdText.getText());
+        searchPersons();
+
     }
 
     //Dodawanie osoby do bazy danych
     @FXML
-    void insertPerson(ActionEvent event) throws ClassNotFoundException {
+    void insertPerson() {
+        PersonDAO.insertPerson(usernameText.getText(), passwordText.getText(), loginCombobox.getValue().toString());
+        resultArea.setText("Dodano osobę: " + usernameText.getText() + " " + passwordText.getText() + " " + loginCombobox.getValue().toString());
+        searchPersons();
 
-        try {
-            PersonDAO.insertPerson(usernameText.getText(), passwordText.getText(), loginCombobox.getValue().toString());
-            resultArea.setText("Dodano osobę: " + usernameText.getText() + " " + passwordText.getText() + " " + loginCombobox.getValue().toString());
-            searchPersons();
-        } catch (SQLException e) {
-            DialogUtils.errorDialog(e.getMessage());
-            System.out.println("Błąd wystąpił podczas dodawania osoby do bazy danych");
-        }
     }
 
     //Szukaj osobe
     @FXML
-    void searchPerson(ActionEvent event) throws SQLException, ClassNotFoundException {
-        try {
-            //Pobieram dane o osobie
-            Person person = PersonDAO.searchPerson(personIdText.getText());
-            //wypelniamy tableview i wyswietlamy w TextArea
-            populateAndShowPerson(person);
-            searchPersons();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            resultArea.setText("Błąd wystąpił podczas wczytywania danych o osobie");
-        }
-
+    void searchPerson() {
+        int x = Integer.parseInt(personIdText.getText());
+        PersonDAO.searchPerson(x);
     }
 
     //Szukaj osoby
     @FXML
-    void searchPersons() throws ClassNotFoundException {
-        try {
-            personIdText.clear();
-            usernameText.clear();
-            passwordText.clear();
-            ObservableList<Person> personData = PersonDAO.searchPersons();
-            populatePersons(personData);
-        } catch (SQLException e) {
-            DialogUtils.errorDialog(e.getMessage());
-        }
+    void searchPersons() {
+        ObservableList<Person> personData = PersonDAO.searchPersons();
+        personTable.setItems(personData);
     }
 
     //Aktualizacja emaila osoby wpisany w newEmailText
     @FXML
-    void updatePersonDetails(ActionEvent event) throws ClassNotFoundException {
-        try {
-            PersonDAO.updatePersonDetails(personIdText.getText(), usernameText.getText(), passwordText.getText(), loginCombobox.getValue().toString());
-            resultArea.setText("Dane zostaly zmienione dla osoby z id: " + personIdText.getText() + "\n");
-            searchPersons();
+    void updatePersonDetails() {
+        int x = Integer.parseInt(personIdText.getText());
+        PersonDAO.updatePersonDetails(x, usernameText.getText(), passwordText.getText(), loginCombobox.getValue().toString());
+        resultArea.setText("Dane zostaly zmienione dla osoby z id: " + personIdText.getText() + "\n");
+        searchPersons();
 
-        } catch (SQLException e) {
-            DialogUtils.errorDialog(e.getMessage());
-        }
     }
 
     //Inicjalizowanie klasy controlera
     @FXML
-    private void initialize() throws  ClassNotFoundException {
-
+    private void initialize() {
 
         searchPersons();
         loginCombobox.setItems(FXCollections.observableArrayList(Options.values()));
@@ -147,41 +117,4 @@ public class AdminPersonListController {
         personPartOfColumn.setCellValueFactory(cellData -> cellData.getValue().partofProperty());
 
     }
-
-    //Wypelnianie danych o osobie
-    @FXML
-    private void populatePerson(Person person) throws ClassNotFoundException {
-        //Deklaracja ObservableList do wyswietlania w tabeli
-        ObservableList<Person> personData = FXCollections.observableArrayList();
-        //Dodajemy go do listy
-        personData.add(person);
-        //Ustawiamy w tabeli
-        personTable.setItems(personData);
-    }
-
-    //Ustawienie informacji o Osobie w TextArea
-    @FXML
-    private void setPersonInfoTextArea(Person person) {
-        resultArea.setText("Login: " + person.getUsername() + "\n" + "Hasło: " + person.getPassword());
-    }
-
-    //Wypelnianie tableview osobami i wyswietlenie osob w textarea
-    @FXML
-    private void populateAndShowPerson(Person person) throws ClassNotFoundException {
-        if (person != null) {
-            populatePerson(person);
-            setPersonInfoTextArea(person);
-        } else {
-            resultArea.setText("Taka osoba nie istnieje!\n");
-        }
-    }
-
-    //Wypelnianie tableview osobami
-    @FXML
-    private void populatePersons(ObservableList<Person> personData) throws ClassNotFoundException {
-        //Ustawienie danych w tabeli
-        personTable.setItems(personData);
-    }
-
-
 }

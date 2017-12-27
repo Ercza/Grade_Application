@@ -22,21 +22,12 @@ public class StudentNewsController {
     private Button student_news_button_refresh;
 
     @FXML
-    void studentRefreshNews() throws ClassNotFoundException {
-        try {
-            ObservableList<News> news = NewsDAO.searchNews();
-            populateNews(news);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
-    private void populateNews(ObservableList<News> news) {
+    void studentRefreshNews(){
+        ObservableList<News> news = NewsDAO.searchNews();
         student_news_table_view.setItems(news);
     }
 
-    public void initialize() throws ClassNotFoundException {
+    public void initialize(){
         studentRefreshNews();
         student_news_description_column.setCellValueFactory(cellData->cellData.getValue().descriptionProperty());
     }

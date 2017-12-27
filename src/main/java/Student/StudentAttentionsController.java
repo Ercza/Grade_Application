@@ -26,22 +26,14 @@ public class StudentAttentionsController {
 
 
     @FXML
-    void studentRefreshAttentions() throws ClassNotFoundException {
-        try {
-            ObservableList<Attention> attentions = AttentionDAO.searchAttentions();
-            populateAttentions(attentions);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    void studentRefreshAttentions(){
+       ObservableList<Attention> attentions = AttentionDAO.searchAttentions();
+       student_attentions_table_view.setItems(attentions);
     }
 
-    @FXML
-    private void populateAttentions(ObservableList<Attention> attentions) {
-        student_attentions_table_view.setItems(attentions);
-    }
 
     @FXML
-    public void initialize() throws ClassNotFoundException {
+    public void initialize(){
         studentRefreshAttentions();
 
         student_attention_column.setCellValueFactory(cellData->cellData.getValue().attentionProperty());

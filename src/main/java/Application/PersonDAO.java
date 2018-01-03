@@ -5,13 +5,17 @@ import Utils.DialogUtils;
 import Utils.LoginEntity;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
+import javax.swing.text.html.Option;
 import java.util.List;
+import java.util.Objects;
 
 public class PersonDAO {
 
-//------------Do zrobienia-------------------
+
     public static ObservableList<Person> searchPerson(int id) {
         List<LoginEntity> list = null;
 
@@ -22,8 +26,10 @@ public class PersonDAO {
             transaction = manager.getTransaction();
             transaction.begin();
 
-           list = manager.createQuery("select c from LoginEntity  as c where c.id = :id", LoginEntity.class).getResultList();
-            manager.setProperty("id",id);
+            Query q = manager.createQuery("select c from LoginEntity  as c where c.id = ?1", LoginEntity.class);
+            q.setParameter(1, id);
+
+            list = q.getResultList();
 
             transaction.commit();
 
@@ -114,8 +120,8 @@ public class PersonDAO {
         }
     }
 
-
-    public static void insertPerson(String username, String password, String partof){
+//-----Do zrobienia-----------
+    public static void insertPerson(String username, String password, String partof) {
         // Create an EntityManager
         EntityManager manager = Main.emf.createEntityManager();
         EntityTransaction transaction = null;
@@ -176,7 +182,7 @@ public class PersonDAO {
 
         for (LoginEntity n : list
                 ) {
-            observableList.add(new Person(n.getId(), n.getUsername(), n.getPassword(), (String) n.getPartof()));
+            observableList.add(new Person(n.getId(), n.getUsername(), n.getPassword(), n.getPartof()));
         }
 
         return observableList;

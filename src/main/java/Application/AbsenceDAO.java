@@ -46,8 +46,7 @@ public class AbsenceDAO {
         return observableList;
     }
 
-    //------------Do zrobienia----------------------
-    public static ObservableList<Absence> searchAbsence(String name, String surename){
+    public static ObservableList<Absence> searchAbsence(String name, String surename) {
         List<AbsencesEntity> list = null;
 
         EntityManager manager = Main.emf.createEntityManager();
@@ -58,13 +57,12 @@ public class AbsenceDAO {
             transaction.begin();
 
             Query q = manager.createQuery("select c from AbsencesEntity as c where c.name = ?1 and c.surename = ?2", AbsencesEntity.class);
-            q.setParameter(1,name);
-            q.setParameter(2,surename);
+            q.setParameter(1, name);
+            q.setParameter(2, surename);
 
-            AbsencesEntity ae = (AbsencesEntity) q.getResultList();
-            list.add(ae);
+            list = q.getResultList();
+
             transaction.commit();
-
 
 
         } catch (Exception e) {

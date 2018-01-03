@@ -12,6 +12,7 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
+import javax.swing.text.html.Option;
 import java.sql.SQLException;
 
 public class AdminPersonListController {
@@ -74,7 +75,7 @@ public class AdminPersonListController {
     //Dodawanie osoby do bazy danych
     @FXML
     void insertPerson() {
-        PersonDAO.insertPerson(usernameText.getText(), passwordText.getText(), loginCombobox.getValue().toString());
+        PersonDAO.insertPerson(usernameText.getText(), passwordText.getText(),loginCombobox.getValue().toString());
         resultArea.setText("Dodano osobę: " + usernameText.getText() + " " + passwordText.getText() + " " + loginCombobox.getValue().toString());
         searchPersons();
 
@@ -84,12 +85,16 @@ public class AdminPersonListController {
     @FXML
     void searchPerson() {
         int x = Integer.parseInt(personIdText.getText());
-        PersonDAO.searchPerson(x);
+        ObservableList<Person> personData = PersonDAO.searchPerson(x);
+        personTable.setItems(personData);
     }
 
     //Szukaj osoby
     @FXML
     void searchPersons() {
+        personIdText.clear();
+        usernameText.clear();
+        passwordText.clear();
         ObservableList<Person> personData = PersonDAO.searchPersons();
         personTable.setItems(personData);
     }

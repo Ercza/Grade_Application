@@ -14,6 +14,7 @@ import javafx.scene.control.*;
 
 import javax.swing.text.html.Option;
 import java.sql.SQLException;
+import java.util.Optional;
 
 public class AdminPersonListController {
 
@@ -65,19 +66,25 @@ public class AdminPersonListController {
     //Usuwanie osoby z bazy dancyh osoby o podanym id
     @FXML
     void deletePerson() {
-        int x = Integer.parseInt(personIdText.getText());
-        PersonDAO.deletePersonWithId(x);
-        resultArea.setText("Usunięto osobę z id: " + personIdText.getText());
-        searchPersons();
+
+        if (DialogUtils.deleteDialog().get() == ButtonType.OK) {
+            int x = Integer.parseInt(personIdText.getText());
+            PersonDAO.deletePersonWithId(x);
+            resultArea.setText("Usunięto osobę z id: " + personIdText.getText());
+            searchPersons();
+        }
 
     }
 
     //Dodawanie osoby do bazy danych
     @FXML
     void insertPerson() {
-        PersonDAO.insertPerson(usernameText.getText(), passwordText.getText(),loginCombobox.getValue().toString());
-        resultArea.setText("Dodano osobę: " + usernameText.getText() + " " + passwordText.getText() + " " + loginCombobox.getValue().toString());
-        searchPersons();
+
+        if (DialogUtils.addDialog().get() == ButtonType.OK) {
+            PersonDAO.insertPerson(usernameText.getText(), passwordText.getText(), loginCombobox.getValue().toString());
+            resultArea.setText("Dodano osobę: " + usernameText.getText() + " " + passwordText.getText() + " " + loginCombobox.getValue().toString());
+            searchPersons();
+        }
 
     }
 
@@ -102,10 +109,13 @@ public class AdminPersonListController {
     //Aktualizacja emaila osoby wpisany w newEmailText
     @FXML
     void updatePersonDetails() {
-        int x = Integer.parseInt(personIdText.getText());
-        PersonDAO.updatePersonDetails(x, usernameText.getText(), passwordText.getText(), loginCombobox.getValue().toString());
-        resultArea.setText("Dane zostaly zmienione dla osoby z id: " + personIdText.getText() + "\n");
-        searchPersons();
+
+        if (DialogUtils.updateDialog().get() == ButtonType.OK) {
+            int x = Integer.parseInt(personIdText.getText());
+            PersonDAO.updatePersonDetails(x, usernameText.getText(), passwordText.getText(), loginCombobox.getValue().toString());
+            resultArea.setText("Dane zostaly zmienione dla osoby z id: " + personIdText.getText() + "\n");
+            searchPersons();
+        }
 
     }
 

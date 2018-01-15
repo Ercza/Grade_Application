@@ -120,7 +120,7 @@ public class PersonDAO {
         }
     }
 
-//-----Do zrobienia-----------
+
     public static void insertPerson(String username, String password, String partof) {
         // Create an EntityManager
         EntityManager manager = Main.emf.createEntityManager();

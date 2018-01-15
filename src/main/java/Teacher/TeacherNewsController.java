@@ -3,12 +3,14 @@ package Teacher;
 
 import Application.News;
 import Application.NewsDAO;
+import Utils.DialogUtils;
 import Utils.NewsEntity;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
 import java.sql.SQLException;
+import java.util.Optional;
 
 public class TeacherNewsController {
 
@@ -48,26 +50,35 @@ public class TeacherNewsController {
 
     @FXML
     void addNews() {
-        NewsDAO.insertNews(news_area.getText());
-        teacherRefreshNews();
+
+        if (DialogUtils.addDialog().get() == ButtonType.OK) {
+            NewsDAO.insertNews(news_area.getText());
+            teacherRefreshNews();
+        }
     }
 
     @FXML
     void deleteNews() {
-        int x = Integer.parseInt(id_field.getText());
-        NewsDAO.deleteNewsWithId(x);
-        teacherRefreshNews();
+
+        if (DialogUtils.deleteDialog().get() == ButtonType.OK) {
+            int x = Integer.parseInt(id_field.getText());
+            NewsDAO.deleteNewsWithId(x);
+            teacherRefreshNews();
+        }
     }
 
     @FXML
     void updateNews() {
-        int x = Integer.parseInt(id_field.getText());
-        NewsDAO.updateNews(x, news_area.getText());
-        teacherRefreshNews();
+
+        if (DialogUtils.updateDialog().get() == ButtonType.OK) {
+            int x = Integer.parseInt(id_field.getText());
+            NewsDAO.updateNews(x, news_area.getText());
+            teacherRefreshNews();
+        }
     }
 
 
-    public void initialize(){
+    public void initialize() {
         teacherRefreshNews();
         id_column.setCellValueFactory(cellData -> cellData.getValue().news_idProperty().asObject());
         teacher_news_description_column.setCellValueFactory(cellData -> cellData.getValue().descriptionProperty());

@@ -2,17 +2,16 @@ package Admin;
 
 import Application.News;
 import Application.NewsDAO;
+import Utils.DialogUtils;
 import com.jfoenix.controls.JFXTextField;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 
 import java.sql.SQLException;
+import java.util.Optional;
 
 
 public class AdminNewsController {
@@ -46,8 +45,10 @@ public class AdminNewsController {
 
     @FXML
     void adminAddNews(ActionEvent event) {
-        NewsDAO.insertNews(admin_news_text_area.getText());
-        adminRefreshNews();
+        if (DialogUtils.addDialog().get() == ButtonType.OK) {
+            NewsDAO.insertNews(admin_news_text_area.getText());
+            adminRefreshNews();
+        }
     }
 
     @FXML
@@ -58,16 +59,22 @@ public class AdminNewsController {
 
     @FXML
     void adminUpdateNews(ActionEvent event) {
-        int x = Integer.parseInt(admin_text_field_id.getText());
-        NewsDAO.updateNews(x, admin_news_text_area.getText());
-        adminRefreshNews();
+
+        if (DialogUtils.updateDialog().get() == ButtonType.OK) {
+            int x = Integer.parseInt(admin_text_field_id.getText());
+            NewsDAO.updateNews(x, admin_news_text_area.getText());
+            adminRefreshNews();
+        }
     }
 
     @FXML
     void adminDeleteNews(ActionEvent event) {
-        int x = Integer.parseInt(admin_text_field_id.getText());
-        NewsDAO.deleteNewsWithId(x);
-        adminRefreshNews();
+
+        if (DialogUtils.deleteDialog().get() == ButtonType.OK) {
+            int x = Integer.parseInt(admin_text_field_id.getText());
+            NewsDAO.deleteNewsWithId(x);
+            adminRefreshNews();
+        }
     }
 
     public void initialize() {

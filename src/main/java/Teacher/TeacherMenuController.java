@@ -1,10 +1,12 @@
 package Teacher;
 
+import Utils.DialogUtils;
 import Utils.FxmlUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -35,15 +37,17 @@ public class TeacherMenuController {
 
     @FXML
     void makeLogout(ActionEvent event) {
-        Stage stage = (Stage) this.teacher_button_logout.getScene().getWindow();
-        stage.close();
+        if (DialogUtils.logoutDialog().get() == ButtonType.OK) {
+            Stage stage = (Stage) this.teacher_button_logout.getScene().getWindow();
+            stage.close();
 
-        Pane root = null;
-        root = FxmlUtils.fxmlLoader(LOGIN_FXML);
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.setTitle("Aplikacja e-Dziennik");
-        stage.show();
+            Pane root = null;
+            root = FxmlUtils.fxmlLoader(LOGIN_FXML);
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("Aplikacja e-Dziennik");
+            stage.show();
+        }
 
     }
 

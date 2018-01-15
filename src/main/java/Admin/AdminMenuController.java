@@ -1,10 +1,12 @@
 package Admin;
 
+import Utils.DialogUtils;
 import Utils.FxmlUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.Pane;
@@ -36,6 +38,7 @@ public class AdminMenuController {
     @FXML
     void makeLogout(ActionEvent event) {
 
+        if (DialogUtils.logoutDialog().get() == ButtonType.OK){
         Stage stage = (Stage) this.admin_button_logout.getScene().getWindow();
         stage.close();
 
@@ -45,6 +48,7 @@ public class AdminMenuController {
         stage.setScene(scene);
         stage.setTitle("Aplikacja e-Dziennik");
         stage.show();
+        }
     }
 
 

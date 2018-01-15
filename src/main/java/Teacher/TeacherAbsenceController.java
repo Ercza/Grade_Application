@@ -2,17 +2,16 @@ package Teacher;
 
 import Application.Absence;
 import Application.AbsenceDAO;
+import Utils.DialogUtils;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTimePicker;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 import java.sql.SQLException;
+import java.util.Optional;
 
 public class TeacherAbsenceController {
 
@@ -58,8 +57,11 @@ public class TeacherAbsenceController {
 
     @FXML
     void addAbsence() {
-        AbsenceDAO.insertAbsence(teacher_absence_name_text_field.getText(), teacher_absence_surename_text_field.getText(), teacher_absence_time_picker.getValue().toString() + " " + teacher_absence_date_picker.getValue().toString());
-        searchAbsence();
+
+        if (DialogUtils.addDialog().get() == ButtonType.OK) {
+            AbsenceDAO.insertAbsence(teacher_absence_name_text_field.getText(), teacher_absence_surename_text_field.getText(), teacher_absence_time_picker.getValue().toString() + " " + teacher_absence_date_picker.getValue().toString());
+            searchAbsence();
+        }
     }
 
     @FXML
@@ -71,16 +73,22 @@ public class TeacherAbsenceController {
 
     @FXML
     void deleteAbsence() {
-        int x = Integer.parseInt(id_field.getText());
-        AbsenceDAO.deleteAbsenceWithId(x);
-        searchAbsence();
+
+        if (DialogUtils.deleteDialog().get() == ButtonType.OK) {
+            int x = Integer.parseInt(id_field.getText());
+            AbsenceDAO.deleteAbsenceWithId(x);
+            searchAbsence();
+        }
     }
 
     @FXML
     void updateAbsence() {
-        int x = Integer.parseInt(id_field.getText());
-        AbsenceDAO.updateAbsence(x, teacher_absence_name_text_field.getText(), teacher_absence_surename_text_field.getText(), teacher_absence_time_picker.getValue().toString() + " " + teacher_absence_date_picker.getValue().toString());
-        searchAbsence();
+
+        if (DialogUtils.updateDialog().get() == ButtonType.OK) {
+            int x = Integer.parseInt(id_field.getText());
+            AbsenceDAO.updateAbsence(x, teacher_absence_name_text_field.getText(), teacher_absence_surename_text_field.getText(), teacher_absence_time_picker.getValue().toString() + " " + teacher_absence_date_picker.getValue().toString());
+            searchAbsence();
+        }
     }
 
     @FXML

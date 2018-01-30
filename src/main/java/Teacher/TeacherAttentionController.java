@@ -52,11 +52,16 @@ public class TeacherAttentionController {
 
     @FXML
     void teacherAttentionAdd(ActionEvent event) {
+        if(!teacher_attention_text_area.getText().isEmpty()) {
+            if (DialogUtils.addDialog().get() == ButtonType.OK) {
 
-        if (DialogUtils.addDialog().get() == ButtonType.OK) {
-
-            AttentionDAO.insertAttention(teacher_attention_text_area.getText(), teacher_attention_time_picker.getValue().toString() + " " + teacher_attention_date_picker.getValue().toString());
-            searchAttentions();
+                AttentionDAO.insertAttention(teacher_attention_text_area.getText(), teacher_attention_time_picker.getValue().toString() + " " + teacher_attention_date_picker.getValue().toString());
+                searchAttentions();
+            }else{
+                DialogUtils.informationDialog("Proszę wypełnić formularze");
+            }
+        }else{
+         DialogUtils.informationDialog("Proszę wypełnić formularze");
         }
 
     }
@@ -70,21 +75,27 @@ public class TeacherAttentionController {
 
     @FXML
     void teacherAttentionDelete(ActionEvent event) {
-
-        if (DialogUtils.deleteDialog().get() == ButtonType.OK) {
-            int x = Integer.parseInt(teacher_attention_id_text_field.getText());
-            AttentionDAO.deleteAttentionWithId(x);
-            searchAttentions();
+        if(teacher_attention_id_text_field.getText().matches("[0-9]+")) {
+            if (DialogUtils.deleteDialog().get() == ButtonType.OK) {
+                int x = Integer.parseInt(teacher_attention_id_text_field.getText());
+                AttentionDAO.deleteAttentionWithId(x);
+                searchAttentions();
+            }
+        }else{
+            DialogUtils.informationDialog("Proszę podać poprawne ID");
         }
     }
 
     @FXML
     void teacherAttentionUpdate(ActionEvent event) {
-
-        if (DialogUtils.updateDialog().get() == ButtonType.OK) {
-            int x = Integer.parseInt(teacher_attention_id_text_field.getText());
-            AttentionDAO.updateAttention(x, teacher_attention_text_area.getText(), teacher_attention_time_picker.getValue().toString() + " " + teacher_attention_date_picker.getValue().toString());
-            searchAttentions();
+        if(teacher_attention_id_text_field.getText().matches("[0-9]+")) {
+            if (DialogUtils.updateDialog().get() == ButtonType.OK) {
+                int x = Integer.parseInt(teacher_attention_id_text_field.getText());
+                AttentionDAO.updateAttention(x, teacher_attention_text_area.getText(), teacher_attention_time_picker.getValue().toString() + " " + teacher_attention_date_picker.getValue().toString());
+                searchAttentions();
+            }
+        }else{
+            DialogUtils.informationDialog("Proszę podać poprawne ID");
         }
 
     }

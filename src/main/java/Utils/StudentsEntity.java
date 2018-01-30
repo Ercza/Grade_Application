@@ -81,4 +81,5 @@ public class StudentsEntity {
 
         return Objects.hash(idStudent, idSubject, name, surename, loginId);
     }
+
 }

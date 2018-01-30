@@ -114,7 +114,6 @@ public class LoginController implements Initializable {
     void onKeyReleased(KeyEvent event) {
         boolean isDisabled = (txtLogin.getText().isEmpty() || txtPassword.getText().isEmpty());
         btLogin.setDisable(isDisabled);
-
     }
 
     public void initialize(URL location, ResourceBundle resources) {

@@ -45,35 +45,46 @@ public class AdminNewsController {
 
     @FXML
     void adminAddNews(ActionEvent event) {
-        if (DialogUtils.addDialog().get() == ButtonType.OK) {
-            NewsDAO.insertNews(admin_news_text_area.getText());
-            adminRefreshNews();
+        if (!admin_news_text_area.getText().isEmpty()) {
+            if (DialogUtils.addDialog().get() == ButtonType.OK) {
+                NewsDAO.insertNews(admin_news_text_area.getText());
+                adminRefreshNews();
+            }
+        } else {
+            DialogUtils.informationDialog("Pole komunikatu jest puste");
         }
     }
 
     @FXML
     void adminRefreshNews() {
+        admin_news_text_area.clear();
         ObservableList<News> news = NewsDAO.searchNews();
         admin_news_tableview.setItems(news);
     }
 
     @FXML
     void adminUpdateNews(ActionEvent event) {
-
-        if (DialogUtils.updateDialog().get() == ButtonType.OK) {
-            int x = Integer.parseInt(admin_text_field_id.getText());
-            NewsDAO.updateNews(x, admin_news_text_area.getText());
-            adminRefreshNews();
+        if (admin_text_field_id.getText().matches("[0-9]+")) {
+            if (DialogUtils.updateDialog().get() == ButtonType.OK) {
+                int x = Integer.parseInt(admin_text_field_id.getText());
+                NewsDAO.updateNews(x, admin_news_text_area.getText());
+                adminRefreshNews();
+            }
+        } else {
+            DialogUtils.informationDialog("Proszę o podanie liczby całkowitej nie ujemnej w polu news_id");
         }
     }
 
     @FXML
     void adminDeleteNews(ActionEvent event) {
-
-        if (DialogUtils.deleteDialog().get() == ButtonType.OK) {
-            int x = Integer.parseInt(admin_text_field_id.getText());
-            NewsDAO.deleteNewsWithId(x);
-            adminRefreshNews();
+        if (admin_text_field_id.getText().matches("[0-9]+")) {
+            if (DialogUtils.deleteDialog().get() == ButtonType.OK) {
+                int x = Integer.parseInt(admin_text_field_id.getText());
+                NewsDAO.deleteNewsWithId(x);
+                adminRefreshNews();
+            }
+        } else {
+            DialogUtils.informationDialog("Proszę o podanie liczby całkowitej nie ujemnej w polu news_id");
         }
     }
 

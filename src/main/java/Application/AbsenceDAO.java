@@ -2,15 +2,12 @@ package Application;
 
 
 import Utils.AbsencesEntity;
-import Utils.MysqlConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 
 public class AbsenceDAO {

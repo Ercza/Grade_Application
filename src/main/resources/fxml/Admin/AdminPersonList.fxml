@@ -72,8 +72,8 @@
               </VBox>
               <VBox prefHeight="129.0" prefWidth="171.0" spacing="4.0">
                <children>
-                  <TextField fx:id="usernameText" promptText="login" />
-                  <TextField fx:id="passwordText" promptText="password" />
+                  <TextField fx:id="usernameText" onKeyReleased="#onKeyReleased" promptText="login" />
+                  <TextField fx:id="passwordText" onKeyReleased="#onKeyReleased" promptText="password" />
                </children>
               </VBox>
          </children>

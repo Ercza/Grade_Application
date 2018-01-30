@@ -11,6 +11,7 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyEvent;
 
 import javax.swing.text.html.Option;
 import java.sql.SQLException;
@@ -66,12 +67,17 @@ public class AdminPersonListController {
     //Usuwanie osoby z bazy dancyh osoby o podanym id
     @FXML
     void deletePerson() {
+        if (personIdText.getText().matches("[0-9]+")) {
+            if (DialogUtils.deleteDialog().get() == ButtonType.OK) {
 
-        if (DialogUtils.deleteDialog().get() == ButtonType.OK) {
-            int x = Integer.parseInt(personIdText.getText());
-            PersonDAO.deletePersonWithId(x);
-            resultArea.setText("Usunięto osobę z id: " + personIdText.getText());
-            searchPersons();
+                int x = Integer.parseInt(personIdText.getText());
+                PersonDAO.deletePersonWithId(x);
+
+                resultArea.setText("Usunięto osobę z id: " + personIdText.getText());
+                searchPersons();
+            }
+        } else {
+            DialogUtils.informationDialog("Proszę o podanie liczby całkowitej nie ujemnej w polu ID Osoby");
         }
 
     }
@@ -91,9 +97,14 @@ public class AdminPersonListController {
     //Szukaj osobe
     @FXML
     void searchPerson() {
-        int x = Integer.parseInt(personIdText.getText());
-        ObservableList<Person> personData = PersonDAO.searchPerson(x);
-        personTable.setItems(personData);
+
+        if (personIdText.getText().matches("[0-9]+")) {
+            int x = Integer.parseInt(personIdText.getText());
+            ObservableList<Person> personData = PersonDAO.searchPerson(x);
+            personTable.setItems(personData);
+        } else {
+            DialogUtils.informationDialog("Proszę o podanie liczby całkowitej nie ujemnej w polu ID Osoby");
+        }
     }
 
     //Szukaj osoby
@@ -109,13 +120,24 @@ public class AdminPersonListController {
     //Aktualizacja emaila osoby wpisany w newEmailText
     @FXML
     void updatePersonDetails() {
-
-        if (DialogUtils.updateDialog().get() == ButtonType.OK) {
-            int x = Integer.parseInt(personIdText.getText());
-            PersonDAO.updatePersonDetails(x, usernameText.getText(), passwordText.getText(), loginCombobox.getValue().toString());
-            resultArea.setText("Dane zostaly zmienione dla osoby z id: " + personIdText.getText() + "\n");
-            searchPersons();
+        if (personIdText.getText().matches("[0-9]+")) {
+            if (DialogUtils.updateDialog().get() == ButtonType.OK) {
+                int x = Integer.parseInt(personIdText.getText());
+                PersonDAO.updatePersonDetails(x, usernameText.getText(), passwordText.getText(), loginCombobox.getValue().toString());
+                resultArea.setText("Dane zostaly zmienione dla osoby z id: " + personIdText.getText() + "\n");
+                searchPersons();
+            }
+        } else {
+            DialogUtils.informationDialog("Proszę o podanie liczby całkowitej nie ujemnej w polu ID Osoby");
         }
+
+    }
+
+    @FXML
+    void onKeyReleased(KeyEvent event) {
+
+        boolean isDisabled = (usernameText.getText().isEmpty() || passwordText.getText().isEmpty());
+        addPersonBtn.setDisable(isDisabled);
 
     }
 
@@ -123,6 +145,7 @@ public class AdminPersonListController {
     @FXML
     private void initialize() {
 
+        addPersonBtn.setDisable(true);
         searchPersons();
         loginCombobox.setItems(FXCollections.observableArrayList(Options.values()));
 

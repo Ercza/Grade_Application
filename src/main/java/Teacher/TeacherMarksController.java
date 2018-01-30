@@ -2,7 +2,6 @@ package Teacher;
 
 
 import Application.Subject;
-import Application.SubjectDAO;
 import Utils.DialogUtils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -65,69 +64,26 @@ public class TeacherMarksController {
 
     @FXML
     void addSubject(ActionEvent event) {
-        try{
-            SubjectDAO.insertSubject(teacher_subject_text_field_id.getText(),teacher_subject_text_field_name.getText(),teacher_subject_text_field_teacherID.getText(),teacher_subject_text_field_studentID.getText(),teacher_subject_text_field_markID.getText());
-            searchSubjects();
-        }catch(ClassNotFoundException e){
-            e.printStackTrace();
-        }
+
     }
 
     @FXML
     void deleteSubject(ActionEvent event) throws ClassNotFoundException {
-        SubjectDAO.deleteSubjectWithID(teacher_subject_text_field_id.getText());
-        searchSubjects();
+
     }
 
     @FXML
     void searchSubjects() throws ClassNotFoundException {
-        try {
-            teacher_subject_text_field_id.clear();
-            teacher_subject_text_field_markID.clear();
-            teacher_subject_text_field_name.clear();
-            teacher_subject_text_field_studentID.clear();
-            teacher_subject_text_field_teacherID.clear();
-            ObservableList<Subject> subjectData = SubjectDAO.searchSubjects();
-            populateSubjects(subjectData);
-        }catch(SQLException e){
-            e.printStackTrace();
-        }
+
     }
     @FXML
     void searchSubject(ActionEvent event) throws SQLException, ClassNotFoundException {
-        try {
-            Subject subject = SubjectDAO.searchSubject(teacher_subject_text_field_id.getText());
-            populateAndShowSubject(subject);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
 
-    }
 
-    @FXML
-    private void populateAndShowSubject(Subject subject) throws ClassNotFoundException {
-        if (subject != null) {
-            populateSubject(subject);
-        } else {
-            DialogUtils.informationDialog("Nie ma takiego przedmiotu o danym ID");
-        }
-    }
-    @FXML
-    private void populateSubject(Subject subject) throws ClassNotFoundException {
-        ObservableList<Subject> subjectData = FXCollections.observableArrayList();
-        subjectData.add(subject);
-        teacher_subject_table_view.setItems(subjectData);
-    }
-
-    @FXML
-    private void populateSubjects(ObservableList<Subject> subjectData){
-       teacher_subject_table_view.setItems(subjectData);
     }
 
     @FXML
     void updateSubject(ActionEvent event) throws ClassNotFoundException {
-        SubjectDAO.updateSubject(teacher_subject_text_field_id.getText(),teacher_subject_text_field_name.getText(),teacher_subject_text_field_teacherID.getText(),teacher_subject_text_field_studentID.getText(),teacher_subject_text_field_markID.getText());
-        searchSubjects();
     }
 
     @FXML

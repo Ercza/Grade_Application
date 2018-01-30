@@ -44,27 +44,36 @@ public class StudentAbsenceController {
     private Button student_absence_refresh_button;
 
     @FXML
-    void searchAbsences(){
-        ObservableList<Absence> absences = AbsenceDAO.searchAbsence(student_absence_name_text_field.getText(),student_absence_surename_text_field.getText());
-        student_absence_table_view.setItems(absences);
-
+    void searchAbsences() {
+        if (student_absence_name_text_field.getText().matches("[a-zA-Z]+") || student_absence_surename_text_field.getText().matches("[a-zA-Z]")) {
+            if (!student_absence_name_text_field.getText().isEmpty() || !student_absence_surename_text_field.getText().isEmpty()) {
+                ObservableList<Absence> absences = AbsenceDAO.searchAbsence(student_absence_name_text_field.getText(), student_absence_surename_text_field.getText());
+                student_absence_table_view.setItems(absences);
+            }else{
+                DialogUtils.informationDialog("Proszę podać prawidłowe imię oraz nazwisko");
+            }
+        } else {
+            DialogUtils.informationDialog("Proszę podać prawidłowe imię oraz nazwisko");
+        }
     }
 
 
     @FXML
-    void refreshAbsence(){
+    void refreshAbsence() {
+        student_absence_name_text_field.clear();
+        student_absence_surename_text_field.clear();
         ObservableList<Absence> absences = AbsenceDAO.searchAbsences();
         student_absence_table_view.setItems(absences);
     }
 
     @FXML
-    public void initialize(){
+    public void initialize() {
         refreshAbsence();
 
-        student_absence_id_column.setCellValueFactory(cell->cell.getValue().idProperty().asObject());
-        student_absence_name_column.setCellValueFactory(cellData->cellData.getValue().nameProperty());
-        student_absence_surename_column.setCellValueFactory(cellData->cellData.getValue().surenameProperty());
-        student_absence_date_column.setCellValueFactory(cellData->cellData.getValue().dateProperty());
+        student_absence_id_column.setCellValueFactory(cell -> cell.getValue().idProperty().asObject());
+        student_absence_name_column.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+        student_absence_surename_column.setCellValueFactory(cellData -> cellData.getValue().surenameProperty());
+        student_absence_date_column.setCellValueFactory(cellData -> cellData.getValue().dateProperty());
     }
 }
 

@@ -44,36 +44,46 @@ public class TeacherNewsController {
 
     @FXML
     void teacherRefreshNews() {
+        news_area.clear();
         ObservableList<News> news = NewsDAO.searchNews();
         teacher_news_table_view.setItems(news);
     }
 
     @FXML
     void addNews() {
-
-        if (DialogUtils.addDialog().get() == ButtonType.OK) {
-            NewsDAO.insertNews(news_area.getText());
-            teacherRefreshNews();
+        if (!news_area.getText().isEmpty()) {
+            if (DialogUtils.addDialog().get() == ButtonType.OK) {
+                NewsDAO.insertNews(news_area.getText());
+                teacherRefreshNews();
+            }
+        } else {
+            DialogUtils.informationDialog("Komunikat jest pusty");
         }
     }
 
     @FXML
     void deleteNews() {
-
-        if (DialogUtils.deleteDialog().get() == ButtonType.OK) {
-            int x = Integer.parseInt(id_field.getText());
-            NewsDAO.deleteNewsWithId(x);
-            teacherRefreshNews();
+        if(id_field.getText().matches("[0-9]+")) {
+            if (DialogUtils.deleteDialog().get() == ButtonType.OK) {
+                int x = Integer.parseInt(id_field.getText());
+                NewsDAO.deleteNewsWithId(x);
+                teacherRefreshNews();
+            }
+        }else{
+            DialogUtils.informationDialog("Proszę podać prawidłowe ID");
         }
     }
 
     @FXML
     void updateNews() {
-
-        if (DialogUtils.updateDialog().get() == ButtonType.OK) {
-            int x = Integer.parseInt(id_field.getText());
-            NewsDAO.updateNews(x, news_area.getText());
-            teacherRefreshNews();
+        if(id_field.getText().matches("[0-9]+")) {
+            if (DialogUtils.updateDialog().get() == ButtonType.OK) {
+                int x = Integer.parseInt(id_field.getText());
+                NewsDAO.updateNews(x, news_area.getText());
+                teacherRefreshNews();
+            }
+        }else{
+            DialogUtils.informationDialog("Proszę podać prawidłowe ID");
         }
     }
 

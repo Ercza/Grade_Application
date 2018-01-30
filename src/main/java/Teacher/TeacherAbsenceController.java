@@ -57,15 +57,26 @@ public class TeacherAbsenceController {
 
     @FXML
     void addAbsence() {
-
-        if (DialogUtils.addDialog().get() == ButtonType.OK) {
-            AbsenceDAO.insertAbsence(teacher_absence_name_text_field.getText(), teacher_absence_surename_text_field.getText(), teacher_absence_time_picker.getValue().toString() + " " + teacher_absence_date_picker.getValue().toString());
-            searchAbsence();
+        if (teacher_absence_name_text_field.getText().matches("([a-zA-Z])+")|| teacher_absence_surename_text_field.getText().matches("([a-zA-Z])")) {
+            if (!teacher_absence_time_picker.getValue().toString().equals(null) || !teacher_absence_date_picker.getValue().toString().equals(null) || !teacher_absence_name_text_field.getText().isEmpty() || !teacher_absence_time_picker.getValue().toString().isEmpty()) {
+                if (DialogUtils.addDialog().get() == ButtonType.OK) {
+                    AbsenceDAO.insertAbsence(teacher_absence_name_text_field.getText(), teacher_absence_surename_text_field.getText(), teacher_absence_time_picker.getValue().toString() + " " + teacher_absence_date_picker.getValue().toString());
+                    searchAbsence();
+                } else {
+                    DialogUtils.informationDialog("Prosze wypełnić wszystkie formularze");
+                }
+            } else {
+                DialogUtils.informationDialog("Prosze wypełnić wszystkie formularze");
+            }
+        }else{
+            DialogUtils.informationDialog("Proszę podać prawidłowe Imię oraz Nazwisko");
         }
     }
 
     @FXML
     void searchAbsence() {
+        teacher_absence_name_text_field.clear();
+        teacher_absence_surename_text_field.clear();
         ObservableList<Absence> absences = AbsenceDAO.searchAbsences();
         teacher_absence_table_view.setItems(absences);
     }
@@ -73,21 +84,27 @@ public class TeacherAbsenceController {
 
     @FXML
     void deleteAbsence() {
-
-        if (DialogUtils.deleteDialog().get() == ButtonType.OK) {
-            int x = Integer.parseInt(id_field.getText());
-            AbsenceDAO.deleteAbsenceWithId(x);
-            searchAbsence();
+        if(id_field.getText().matches("[0-9]+")) {
+            if (DialogUtils.deleteDialog().get() == ButtonType.OK) {
+                int x = Integer.parseInt(id_field.getText());
+                AbsenceDAO.deleteAbsenceWithId(x);
+                searchAbsence();
+            }
+        }else{
+            DialogUtils.informationDialog("Proszę o podanie prawidłowego ID");
         }
     }
 
     @FXML
     void updateAbsence() {
-
-        if (DialogUtils.updateDialog().get() == ButtonType.OK) {
-            int x = Integer.parseInt(id_field.getText());
-            AbsenceDAO.updateAbsence(x, teacher_absence_name_text_field.getText(), teacher_absence_surename_text_field.getText(), teacher_absence_time_picker.getValue().toString() + " " + teacher_absence_date_picker.getValue().toString());
-            searchAbsence();
+        if(id_field.getText().matches("[0-9]+")) {
+            if (DialogUtils.updateDialog().get() == ButtonType.OK) {
+                int x = Integer.parseInt(id_field.getText());
+                AbsenceDAO.updateAbsence(x, teacher_absence_name_text_field.getText(), teacher_absence_surename_text_field.getText(), teacher_absence_time_picker.getValue().toString() + " " + teacher_absence_date_picker.getValue().toString());
+                searchAbsence();
+            }
+        }else{
+            DialogUtils.informationDialog("Proszę o podanie prawidłowego ID");
         }
     }
 

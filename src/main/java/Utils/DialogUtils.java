@@ -23,9 +23,8 @@ public class DialogUtils {
     public static void informationDialog(String information) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Informacja");
+        alert.setHeaderText(information);
 
-        TextArea textArea = new TextArea(information);
-        alert.getDialogPane().setContent(textArea);
         alert.showAndWait();
     }
 

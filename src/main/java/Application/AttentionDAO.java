@@ -1,14 +1,11 @@
 package Application;
 
 import Utils.AttentionsEntity;
-import Utils.MysqlConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 
 public class AttentionDAO {

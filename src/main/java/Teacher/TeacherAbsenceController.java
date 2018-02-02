@@ -9,8 +9,11 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Optional;
 
 public class TeacherAbsenceController {
@@ -57,7 +60,7 @@ public class TeacherAbsenceController {
 
     @FXML
     void addAbsence() {
-        if (teacher_absence_name_text_field.getText().matches("([a-zA-Z])+")|| teacher_absence_surename_text_field.getText().matches("([a-zA-Z])")) {
+        if (teacher_absence_name_text_field.getText().matches("[a-zA-Z]+")&& teacher_absence_surename_text_field.getText().matches("[a-zA-Z]+")) {
             if (!teacher_absence_time_picker.getValue().toString().equals(null) || !teacher_absence_date_picker.getValue().toString().equals(null) || !teacher_absence_name_text_field.getText().isEmpty() || !teacher_absence_time_picker.getValue().toString().isEmpty()) {
                 if (DialogUtils.addDialog().get() == ButtonType.OK) {
                     AbsenceDAO.insertAbsence(teacher_absence_name_text_field.getText(), teacher_absence_surename_text_field.getText(), teacher_absence_time_picker.getValue().toString() + " " + teacher_absence_date_picker.getValue().toString());
@@ -112,10 +115,32 @@ public class TeacherAbsenceController {
     public void initialize() {
         searchAbsence();
 
+
         teacher_absence_id_column.setCellValueFactory(cell -> cell.getValue().idProperty().asObject());
         teacher_absence_name_column.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
         teacher_absence_surename_column.setCellValueFactory(cellData -> cellData.getValue().surenameProperty());
         teacher_absence_date_column.setCellValueFactory(cellData -> cellData.getValue().dateProperty());
+
+        teacher_absence_table_view.setRowFactory(tableView2 -> {
+            final TableRow<Absence> row = new TableRow<>();
+            row.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
+                final int index = row.getIndex();
+                Absence clickedRow = row.getItem();
+                if (!row.isEmpty()) { // tutaj pobieranie danych z tabeli do pol
+                    id_field.setText(String.valueOf(clickedRow.getId()));
+                    teacher_absence_name_text_field.setText(clickedRow.getName());
+                    teacher_absence_surename_text_field.setText(clickedRow.getSurename());
+                }
+                if (index >= 0 && index < teacher_absence_table_view.getItems().size() && teacher_absence_table_view.getSelectionModel().isSelected(index)) {
+                    teacher_absence_table_view.getSelectionModel().clearSelection();
+                    id_field.clear();
+                    teacher_absence_name_text_field.clear();
+                    teacher_absence_surename_text_field.clear();
+                    event.consume();
+                }
+            });
+            return row;
+        });
     }
 
 }

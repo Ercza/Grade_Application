@@ -12,6 +12,7 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 
 import javax.swing.text.html.Option;
 import java.sql.SQLException;
@@ -154,5 +155,25 @@ public class AdminPersonListController {
         personPasswordColumn.setCellValueFactory(cellData -> cellData.getValue().passwordProperty());
         personPartOfColumn.setCellValueFactory(cellData -> cellData.getValue().partofProperty());
 
+        personTable.setRowFactory(tableView2 -> {
+            final TableRow<Person> row = new TableRow<>();
+            row.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
+                final int index = row.getIndex();
+                Person clickedRow = row.getItem();
+                if (!row.isEmpty()) { // tutaj pobieranie danych z tabeli do pol
+                    usernameText.setText(String.valueOf(clickedRow.getUsername()));
+                    passwordText.setText(clickedRow.getPassword());
+                    personIdText.setText(String.valueOf(clickedRow.getPerson_id()));
+                }
+                if (index >= 0 && index < personTable.getItems().size() && personTable.getSelectionModel().isSelected(index)) {
+                    personTable.getSelectionModel().clearSelection();
+                    usernameText.clear();
+                    passwordText.clear();
+                    personIdText.clear();
+                    event.consume();
+                }
+            });
+            return row;
+        });
     }
 }

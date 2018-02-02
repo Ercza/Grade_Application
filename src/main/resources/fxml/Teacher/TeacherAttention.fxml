@@ -34,6 +34,7 @@
                         <Button fx:id="teacher_attention_button_add" mnemonicParsing="false" onAction="#teacherAttentionAdd" text="Dodaj" />
                         <Button fx:id="teacher_attention_button_udpate" mnemonicParsing="false" onAction="#teacherAttentionUpdate" text="Aktualizuj" />
                         <Button fx:id="teacher_attention_button_delete" mnemonicParsing="false" onAction="#teacherAttentionDelete" text="Usuń" />
+                        <Button fx:id="refresh_btn" mnemonicParsing="false" onAction="#refresh" text="Odśwież" />
                      </children>
                   </HBox>
                   <HBox prefHeight="30.0" prefWidth="560.0" spacing="10.0">

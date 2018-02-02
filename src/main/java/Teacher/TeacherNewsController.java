@@ -8,6 +8,7 @@ import Utils.NewsEntity;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 
 import java.sql.SQLException;
 import java.util.Optional;
@@ -45,6 +46,7 @@ public class TeacherNewsController {
     @FXML
     void teacherRefreshNews() {
         news_area.clear();
+        id_field.clear();
         ObservableList<News> news = NewsDAO.searchNews();
         teacher_news_table_view.setItems(news);
     }
@@ -92,6 +94,25 @@ public class TeacherNewsController {
         teacherRefreshNews();
         id_column.setCellValueFactory(cellData -> cellData.getValue().news_idProperty().asObject());
         teacher_news_description_column.setCellValueFactory(cellData -> cellData.getValue().descriptionProperty());
+
+        teacher_news_table_view.setRowFactory(tableView2 -> {
+            final TableRow<News> row = new TableRow<>();
+            row.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
+                final int index = row.getIndex();
+                News clickedRow = row.getItem();
+                if (!row.isEmpty()) { // tutaj pobieranie danych z tabeli do pol
+                    id_field.setText(String.valueOf(clickedRow.getNews_id()));
+                    news_area.setText(clickedRow.getDescription());
+                }
+                if (index >= 0 && index < teacher_news_table_view.getItems().size() && teacher_news_table_view.getSelectionModel().isSelected(index)) {
+                    teacher_news_table_view.getSelectionModel().clearSelection();
+                    id_field.clear();
+                    news_area.clear();
+                    event.consume();
+                }
+            });
+            return row;
+        });
     }
 
 }

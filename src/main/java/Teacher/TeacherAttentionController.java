@@ -9,6 +9,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 
 import java.sql.SQLException;
 import java.util.Date;
@@ -38,6 +39,9 @@ public class TeacherAttentionController {
     private Button teacher_attention_button_delete;
 
     @FXML
+    private Button refresh_btn;
+
+    @FXML
     private JFXTimePicker teacher_attention_time_picker;
 
     @FXML
@@ -52,7 +56,7 @@ public class TeacherAttentionController {
 
     @FXML
     void teacherAttentionAdd(ActionEvent event) {
-        if(!teacher_attention_text_area.getText().isEmpty()) {
+        if(!teacher_attention_text_area.getText().isEmpty() || teacher_attention_id_text_field.getText().matches("[0-9]+")) {
             if (DialogUtils.addDialog().get() == ButtonType.OK) {
 
                 AttentionDAO.insertAttention(teacher_attention_text_area.getText(), teacher_attention_time_picker.getValue().toString() + " " + teacher_attention_date_picker.getValue().toString());
@@ -68,6 +72,14 @@ public class TeacherAttentionController {
 
     @FXML
     void searchAttentions() {
+        ObservableList<Attention> attentions = AttentionDAO.searchAttentions();
+        teacher_attention_table_view.setItems(attentions);
+    }
+
+    @FXML
+    void refresh(){
+        teacher_attention_id_text_field.clear();
+        teacher_attention_text_area.clear();
         ObservableList<Attention> attentions = AttentionDAO.searchAttentions();
         teacher_attention_table_view.setItems(attentions);
     }
@@ -108,6 +120,25 @@ public class TeacherAttentionController {
         teacher_attention_id_column.setCellValueFactory(cellData -> cellData.getValue().student_idProperty().asObject());
         teacher_attention_column.setCellValueFactory(cellData -> cellData.getValue().attentionProperty());
         teacher_attention_date_column.setCellValueFactory(cellData -> cellData.getValue().dateProperty());
+
+        teacher_attention_table_view.setRowFactory(tableView2 -> {
+            final TableRow<Attention> row = new TableRow<>();
+            row.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
+                final int index = row.getIndex();
+                Attention clickedRow = row.getItem();
+                if (!row.isEmpty()) { // tutaj pobieranie danych z tabeli do pol
+                    teacher_attention_id_text_field.setText(String.valueOf(clickedRow.getStudent_id()));
+                    teacher_attention_text_area.setText(clickedRow.getAttention());
+                }
+                if (index >= 0 && index < teacher_attention_table_view.getItems().size() && teacher_attention_table_view.getSelectionModel().isSelected(index)) {
+                    teacher_attention_table_view.getSelectionModel().clearSelection();
+                    teacher_attention_id_text_field.clear();
+                    teacher_attention_text_area.clear();
+                    event.consume();
+                }
+            });
+            return row;
+        });
     }
 
 

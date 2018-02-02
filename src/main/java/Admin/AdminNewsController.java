@@ -9,6 +9,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 
 import java.sql.SQLException;
 import java.util.Optional;
@@ -58,6 +59,7 @@ public class AdminNewsController {
     @FXML
     void adminRefreshNews() {
         admin_news_text_area.clear();
+        admin_text_field_id.clear();
         ObservableList<News> news = NewsDAO.searchNews();
         admin_news_tableview.setItems(news);
     }
@@ -93,6 +95,26 @@ public class AdminNewsController {
 
         admin_news_id_column.setCellValueFactory(cellData -> cellData.getValue().news_idProperty().asObject());
         admin_news_description_column.setCellValueFactory(cellData -> cellData.getValue().descriptionProperty());
+
+        admin_news_tableview.setRowFactory(tableView2 -> {
+            final TableRow<News> row = new TableRow<>();
+            row.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
+                final int index = row.getIndex();
+                News clickedRow = row.getItem();
+                if (!row.isEmpty()) { // tutaj pobieranie danych z tabeli do pol
+                    admin_text_field_id.setText(String.valueOf(clickedRow.getNews_id()));
+                    admin_news_text_area.setText(clickedRow.getDescription());
+
+                }
+                if (index >= 0 && index < admin_news_tableview.getItems().size() && admin_news_tableview.getSelectionModel().isSelected(index)) {
+                    admin_news_tableview.getSelectionModel().clearSelection();
+                    admin_text_field_id.clear();
+                    admin_news_text_area.clear();
+                    event.consume();
+                }
+            });
+            return row;
+        });
 
     }
 

@@ -10,17 +10,17 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Teacher.TeacherMarksController">
+<AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.TeacherMarksController">
    <children>
       <VBox prefHeight="600.0" prefWidth="1000.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
             <TableView fx:id="teacher_subject_table_view" prefHeight="347.0" prefWidth="1000.0">
               <columns>
                   <TableColumn fx:id="teacher_mark_id_column" prefWidth="75.0" text="ID" />
-                <TableColumn fx:id="teacher_mark_name_column" prefWidth="75.0" text="Nazwa" />
-                <TableColumn fx:id="teacher_mark_teacherID_column" prefWidth="75.0" text="ID Nauczyciela" />
-                  <TableColumn fx:id="teacher_mark_studentID_column" prefWidth="75.0" text="ID Ucznia" />
-                  <TableColumn fx:id="teacher_markID_column" prefWidth="75.0" text="ID Oceny" />
+                <TableColumn fx:id="teacher_mark_name_column" prefWidth="75.0" text="Imię" />
+                <TableColumn fx:id="teacher_mark_surename_column" prefWidth="75.0" text="Nazwisko" />
+                  <TableColumn fx:id="teacher_mark_subject_column" prefWidth="75.0" text="Przedmiot" />
+                  <TableColumn fx:id="mark_column" prefWidth="75.0" text="Ocena" />
               </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -31,31 +31,31 @@
                   <VBox alignment="CENTER" prefHeight="200.0" prefWidth="150.0">
                      <children>
                         <Label alignment="CENTER" contentDisplay="CENTER" text="ID" />
-                        <TextField fx:id="teacher_subject_text_field_id" />
+                        <TextField fx:id="teacher_id_text_field" />
                      </children>
                   </VBox>
                   <VBox alignment="CENTER" prefHeight="200.0" prefWidth="150.0">
                      <children>
-                        <Label alignment="CENTER" contentDisplay="CENTER" text="Nazwa" />
-                        <TextField fx:id="teacher_subject_text_field_name" />
+                        <Label alignment="CENTER" contentDisplay="CENTER" text="Imię" />
+                        <TextField fx:id="teacher_name_text_field" />
                      </children>
                   </VBox>
                   <VBox alignment="CENTER" prefHeight="200.0" prefWidth="150.0">
                      <children>
-                        <Label alignment="CENTER" contentDisplay="CENTER" text="ID  Nauczyciela" />
-                        <TextField fx:id="teacher_subject_text_field_teacherID" />
+                        <Label alignment="CENTER" contentDisplay="CENTER" text="Nazwisko" />
+                        <TextField fx:id="teacher_surename_text_field" />
                      </children>
                   </VBox>
                   <VBox alignment="CENTER" prefHeight="200.0" prefWidth="150.0">
                      <children>
-                        <Label alignment="CENTER" contentDisplay="CENTER" text="ID Ucznia" />
-                        <TextField fx:id="teacher_subject_text_field_studentID" />
+                        <Label alignment="CENTER" contentDisplay="CENTER" text="Przedmiot" />
+                        <TextField fx:id="teacher_subject_text_field" />
                      </children>
                   </VBox>
                   <VBox alignment="CENTER" prefHeight="200.0" prefWidth="150.0">
                      <children>
-                        <Label alignment="CENTER" contentDisplay="CENTER" text="ID Oceny" />
-                        <TextField fx:id="teacher_subject_text_field_markID" />
+                        <Label alignment="CENTER" contentDisplay="CENTER" text="Ocena" />
+                        <TextField fx:id="teacher_mark_text_field" />
                      </children>
                   </VBox>
                </children>
@@ -65,10 +65,10 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
                <children>
-                  <Button fx:id="teacher_subject_button_add" mnemonicParsing="false" onAction="#addSubject" text="Dodaj" />
-                  <Button fx:id="teacher_subject_button_update" mnemonicParsing="false" onAction="#updateSubject" text="Aktualizuj" />
-                  <Button fx:id="teacher_subject_button_delete" mnemonicParsing="false" onAction="#deleteSubject" text="Usuń" />
-                  <Button fx:id="teacher_subject_button_search" mnemonicParsing="false" onAction="#searchSubject" text="Szukaj po ID" />
+                  <Button fx:id="teacher_subject_button_add" mnemonicParsing="false" onAction="#addMark" text="Dodaj" />
+                  <Button fx:id="teacher_subject_button_update" mnemonicParsing="false" onAction="#updateMark" text="Aktualizuj" />
+                  <Button fx:id="teacher_subject_button_delete" mnemonicParsing="false" onAction="#deleteMark" text="Usuń" />
+                  <Button fx:id="teacher_subject_button_search" mnemonicParsing="false" onAction="#searchMark" text="Szukaj po Imieniu i Nazwisku" />
                   <Button fx:id="teacher_mark_button_refresh" mnemonicParsing="false" onAction="#searchSubjects" text="Odśwież" />
                </children>
             </HBox>

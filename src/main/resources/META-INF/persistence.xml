@@ -4,14 +4,15 @@
              version="2.0">
     <persistence-unit name="school" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <class>Utils.NotesEntity</class>
-        <class>Utils.StudentsEntity</class>
-        <class>Utils.SubjectsEntity</class>
-        <class>Utils.TeachersEntity</class>
-        <class>Utils.LoginEntity</class>
-        <class>Utils.AbsencesEntity</class>
-        <class>Utils.AttentionsEntity</class>
-        <class>Utils.NewsEntity</class>
+        <class>Entity.NotesEntity</class>
+        <class>Entity.StudentsEntity</class>
+        <class>Entity.SubjectsEntity</class>
+        <class>Entity.TeachersEntity</class>
+        <class>Entity.LoginEntity</class>
+        <class>Entity.AbsencesEntity</class>
+        <class>Entity.AttentionsEntity</class>
+        <class>Entity.NewsEntity</class>
+        <class>Entity.OcenyEntity</class>
         <properties>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
             <property name="javax.persistence.jdbc.user" value="root"/>

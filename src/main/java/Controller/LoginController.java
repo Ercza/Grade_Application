@@ -5,6 +5,7 @@ import Application.AdminWindow;
 import Application.Main;
 import Application.StudentWindow;
 import Application.TeacherWindow;
+import DAO.LoginDAO;
 import Utils.DialogUtils;
 import Entity.LoginEntity;
 import com.jfoenix.controls.JFXButton;
@@ -28,6 +29,8 @@ import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
 
+    public int loginID;
+
     @FXML
     private JFXTextField txtLogin;
 
@@ -46,50 +49,11 @@ public class LoginController implements Initializable {
     @FXML
     private JFXComboBox<Options> combobox;
 
-    public boolean isLogin(String user, String pass, String option) {
-
-        EntityManager em = Main.emf.createEntityManager();
-        EntityTransaction transaction = null;
-
-        try {
-            transaction = em.getTransaction();
-            transaction.begin();
-
-            Query q = em.createQuery("select u from LoginEntity u where u.username = ?1 and u.password = ?2 and u.partof = ?3", LoginEntity.class);
-            q.setParameter(1, user);
-            q.setParameter(2, pass);
-            q.setParameter(3, option);
-
-            transaction.commit();
-
-            LoginEntity le = (LoginEntity) q.getSingleResult();
-
-            if (user.equalsIgnoreCase(le.getUsername()) && pass.equals(le.getPassword()) && option.equals(le.getPartof())) {
-                return true;
-            }else{
-                return false;
-            }
-
-        } catch (Exception e) {
-            DialogUtils.informationDialog("Podane dane logowania są błędne");
-            dbStatus.setText("Złe dane logowania");
-
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            e.printStackTrace();
-
-            return false;
-        } finally {
-            em.close();
-        }
-
-    }
-
     @FXML
     void makeLogin(ActionEvent event) { //funkcja logująca
 
-        if (this.isLogin(this.txtLogin.getText(), this.txtPassword.getText(), this.combobox.getValue().toString())) {
+        LoginDAO lc = new LoginDAO();
+        if (lc.isLogin(this.txtLogin.getText(), this.txtPassword.getText(), this.combobox.getValue().toString())) {
 
             Stage stage = (Stage) this.btLogin.getScene().getWindow();
             stage.close();

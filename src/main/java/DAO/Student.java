@@ -11,16 +11,14 @@ public class Student {
     private StringProperty name;
     private StringProperty surename;
     private IntegerProperty login_id;
-    private IntegerProperty subject_id;
 
 
-    public Student(int student_id, String name, String surename,int login_id,int subject_id){
+    public Student(int student_id, String name, String surename,int login_id){
 
         this.student_id = new SimpleIntegerProperty(student_id);
         this.name = new SimpleStringProperty(name);
         this.surename = new SimpleStringProperty(surename);
         this.login_id = new SimpleIntegerProperty(login_id);
-        this.subject_id = new SimpleIntegerProperty(subject_id);
 
     }
 
@@ -70,18 +68,6 @@ public class Student {
 
     public void setLogin_id(int login_id) {
         this.login_id.set(login_id);
-    }
-
-    public int getSubject_id() {
-        return subject_id.get();
-    }
-
-    public IntegerProperty subject_idProperty() {
-        return subject_id;
-    }
-
-    public void setSubject_id(int subject_id) {
-        this.subject_id.set(subject_id);
     }
 
 }

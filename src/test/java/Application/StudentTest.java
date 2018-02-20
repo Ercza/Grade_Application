@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class StudentTest {
-    Student student =new Student(1,"Artur","Vasiliev",1,1);
+    Student student =new Student(1,"Artur","Vasiliev",1);
 
     @Test
     void getStudent_id() {
@@ -28,8 +28,4 @@ class StudentTest {
         assertEquals(1,student.getLogin_id());
     }
 
-    @Test
-    void getSubject_id() {
-        assertEquals(1,student.getSubject_id());
-    }
 }

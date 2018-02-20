@@ -1,7 +1,10 @@
 package DAO;
 
 import Application.Main;
+import Controller.LoginController;
+import Entity.LoginEntity;
 import Entity.OcenyEntity;
+import Entity.StudentsEntity;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -183,4 +186,55 @@ public class NotesDAO {
             manager.close();
         }
     }
+
+    public static ObservableList<Notes> searchNoteE() {
+        List<OcenyEntity> list = null;
+        List<StudentsEntity> list1;
+
+        EntityManager manager = Main.emf.createEntityManager();
+        EntityTransaction transaction = null;
+
+        int loginid = LoginDAO.loginID;
+        String name = null;
+        String surename = null;
+
+        try {
+            transaction = manager.getTransaction();
+            transaction.begin();
+
+            LoginEntity login = manager.find(LoginEntity.class,loginid);
+
+            name= login.getStudentID().getName();
+            surename = login.getStudentID().getSurename();
+
+            System.out.println(name);
+            System.out.println(surename);
+
+            Query q = manager.createQuery("select c from OcenyEntity as c where c.imię = ?1 and c.nazwisko = ?2", OcenyEntity.class);
+            q.setParameter(1, name);
+            q.setParameter(2, surename);
+
+            list = q.getResultList();
+
+            transaction.commit();
+
+
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            manager.close();
+        }
+        ObservableList<Notes> observableList = FXCollections.observableArrayList();
+
+        for (OcenyEntity n : list
+                ) {
+            observableList.add(new Notes(n.getId(), n.getImię(), n.getNazwisko(), n.getPrzedmiot(),n.getOcena()));
+        }
+
+        return observableList;
+    }
+
 }

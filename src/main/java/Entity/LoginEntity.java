@@ -11,6 +11,8 @@ public class LoginEntity {
     private String password;
     private String partof;
 
+    private StudentsEntity studentID;
+
     @Id
     @Column(name = "id", nullable = false)
     public int getId() {
@@ -49,6 +51,16 @@ public class LoginEntity {
 
     public void setPartof(String partof) {
         this.partof = partof;
+    }
+
+    @OneToOne
+    @JoinColumn(name = "student_id")
+    public StudentsEntity getStudentID() {
+        return studentID;
+    }
+
+    public void setStudentID(StudentsEntity studentID) {
+        this.studentID = studentID;
     }
 
     @Override

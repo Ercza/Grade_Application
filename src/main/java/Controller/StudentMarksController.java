@@ -25,40 +25,21 @@ public class StudentMarksController {
     private TableColumn<Notes, Integer> note_column;
 
     @FXML
-    private TextField name_student_field;
-
-    @FXML
-    private TextField surename_teacher_field;
-
-    @FXML
-    private Button searchButton;
-
-    @FXML
     private Button refreshButton;
 
+
     @FXML
-    void readAllNotes() {
-        name_student_field.clear();
-        surename_teacher_field.clear();
-        ObservableList<Notes> notes = NotesDAO.searchNotes();
+    void searchNoteE() {
+
+        ObservableList<Notes> notes = NotesDAO.searchNoteE();
         tableView.setItems(notes);
 
-    }
-
-    @FXML
-    void searchNote() {
-        if (!name_student_field.getText().isEmpty() && !surename_teacher_field.getText().isEmpty()) {
-            ObservableList<Notes> note = NotesDAO.searchNote(name_student_field.getText(), surename_teacher_field.getText());
-            tableView.setItems(note);
-        } else {
-            DialogUtils.informationDialog("Proszę podać prawidłowe Imię oraz Nazwisko");
-        }
     }
 
 
     @FXML
     public void initialize() {
-        readAllNotes();
+        searchNoteE();
 
         name_column.setCellValueFactory(cell -> cell.getValue().nameProperty());
         surename_column.setCellValueFactory(cell -> cell.getValue().surenameProperty());
